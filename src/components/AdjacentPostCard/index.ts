@@ -1,0 +1,1 @@
+export { AdjacentPostCard } from './AdjacentPostCard';
