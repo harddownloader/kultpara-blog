@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { BLOG_NAME } from '@/lib/const';
 import Subscribe from "@/components/Subscribe/Subscribe";
+import Socials from "@/components/Socials/Socials";
+import {useReactiveVar} from "@apollo/client";
+import {socialsVar} from "@/lib/cache";
 
 export function Footer({}) {
+  const socials = useReactiveVar(socialsVar);
   const [year] = useState(new Date().getFullYear());
 
   return (
@@ -17,6 +21,9 @@ export function Footer({}) {
       <div className="w-full my-4">
         <p className="text-lg capitalize text-center mb-1">receive news:</p>
         <Subscribe />
+      </div>
+      <div className="w-full flex justify-center">
+        <Socials socials={socials} />
       </div>
       <div className="w-full text-center">
         <p className="p-2">
