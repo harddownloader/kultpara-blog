@@ -1,0 +1,10 @@
+{
+  "leave-a-reply": "Leave a Reply",
+  "name": "Name",
+  "email": "Email",
+  "comment": "Comment",
+  "send": "Send",
+  "save_comment_data": "Save my name, email in this browser for the next time I comment.",
+  "validation_warn": "All fields are mandatory",
+  "submitting_for_moderation": "Comment submitted for review"
+}
