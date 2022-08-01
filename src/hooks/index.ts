@@ -1,0 +1,1 @@
+export { OutsideAlerter } from './useClickOutside';
