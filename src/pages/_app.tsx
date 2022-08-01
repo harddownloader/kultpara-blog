@@ -1,9 +1,10 @@
-import '../styles/globals.scss'
+import '../styles/globals.scss';
 import React, { ReactElement, ReactNode } from "react";
 import { NextPage } from "next";
 import type { AppProps } from 'next/app';
 import { ApolloProvider } from "@apollo/client";
 import apolloClient from "@/lib/graphql";
+import { appWithTranslation } from 'next-i18next';
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
@@ -23,4 +24,4 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   );
 }
 
-export default MyApp
+export default appWithTranslation(MyApp);
