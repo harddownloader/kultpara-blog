@@ -5,6 +5,7 @@ import Socials from "@/components/Socials/Socials";
 import {useReactiveVar} from "@apollo/client";
 import {socialsVar} from "@/lib/cache";
 
+
 export function Footer({}) {
   const socials = useReactiveVar(socialsVar);
   const [year] = useState(new Date().getFullYear());
