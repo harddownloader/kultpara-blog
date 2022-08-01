@@ -1,12 +1,13 @@
-import { InMemoryCache, ReactiveVar, makeVar } from "@apollo/client";
-// import { Todos } from "./models/Todos";
-// import { VisibilityFilter, VisibilityFilters } from "./models/VisibilityFilter";
+import { InMemoryCache, makeVar } from "@apollo/client";
+import { i18n } from "../../next-i18next.config";
+import { socials } from './socials';
 
 /**
  * Set initial values when we create cache variables.
  */
 
-export const langsVar = makeVar('ENG');
+export const languagesVar = makeVar(i18n.locales || []);
+export const socialsVar = makeVar(socials);
 
 export const cache: InMemoryCache = new InMemoryCache({
   typePolicies: {
@@ -14,38 +15,15 @@ export const cache: InMemoryCache = new InMemoryCache({
       fields: {
         languages: {
           read() {
-            return langsVar();
+            return languagesVar();
           }
         },
-        // todos: {
-        //   read () {
-        //     return todosVar();
-        //   }
-        // },
-        // visibilityFilter: {
-        //   read () {
-        //     return visibilityFilterVar();
-        //   },
-        // }
+        socials: {
+          read() {
+            return socialsVar();
+          }
+        },
       }
     }
   }
 });
-
-
-
-// const todosInitialValue: Todos = [
-//   {
-//     id: 0,
-//     completed: false,
-//     text: "Use Apollo Client 3"
-//   }
-// ]
-//
-// export const todosVar: ReactiveVar<Todos> = makeVar<Todos>(
-//   todosInitialValue
-// );
-//
-// export const visibilityFilterVar = makeVar<VisibilityFilter>(
-//   VisibilityFilters.SHOW_ALL
-// )
