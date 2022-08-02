@@ -223,7 +223,7 @@ export const submitComment = async (obj) => {
 export const getComments = async (slug) => {
   const query = gql`
     query GetComments($slug:String!) {
-      comments(where: {post: {slug:$slug}}){
+      comments(where: {post: {slug:$slug}}) {
         name
         createdAt
         comment
@@ -256,3 +256,22 @@ export const getRecentPosts = async () => {
 
   return result.posts;
 };
+
+export const getSearchResults = async (searchQuery: string) => {
+  const query = gql`
+    query GetSearchResults($searchQuery:String!) {
+      posts(where: { _search: $searchQuery }) {
+        title
+        featuredImage {
+          url
+        }
+        createdAt
+        slug
+      }
+    }
+  `;
+
+  const result = await request(graphqlAPI, query, { searchQuery });
+
+  return result.posts;
+}
