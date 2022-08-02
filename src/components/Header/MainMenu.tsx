@@ -12,8 +12,11 @@ export const MainMenu = ({ categories }: MainMenuProps) => {
       {categories.map((category: Category) => {
         return (
           <Link key={category.slug} href={`/category/${category.slug}`}>
-              <span className={'mt-2 align-middle text-white text-start mr-4 font-semibold cursor-pointer ' +
-                'hover:border-b-4 hover:border-white'}>
+              <span
+                className={'mt-2 mr-4 pb-4 align-middle text-white text-start font-semibold cursor-pointer ' +
+                'hover:border-b-4 hover:border-white' +
+                  'md:pb-0'}
+              >
                 {category.name}
               </span>
           </Link>
