@@ -1,15 +1,12 @@
-import React, {ReactElement} from 'react';
+import React, { ReactElement } from 'react';
 import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { getCategories, getCategoryPost } from '../../../services';
-import {PostCard, Categories, Loader, Layout} from '../../../components';
-import { langsVar } from '@/lib/cache';
-import Home from "../index";
-import {useReactiveVar} from "@apollo/client";
+import { getCategories, getCategoryPost } from '@/services';
+import { PostCard, Categories, Loader, Layout } from '@/components';
+
 
 const CategoryPost = ({ posts }) => {
   const router = useRouter();
-  // const langs = useReactiveVar(langsVar);
 
   if (router.isFallback) {
     return <Loader />;
@@ -32,7 +29,6 @@ const CategoryPost = ({ posts }) => {
     </div>
   );
 };
-export default CategoryPost;
 
 // Fetch data at build time
 export async function getStaticProps({ params, locale }) {
@@ -42,19 +38,34 @@ export async function getStaticProps({ params, locale }) {
   return {
     props: {
       posts,
-      ...(await serverSideTranslations(locale, ['common'])),
+      ...(await serverSideTranslations(locale, ['common', 'comments', 'header', 'footer'])),
     },
   };
 }
 
 // Specify dynamic routes to pre-render pages based on data.
 // The HTML is generated at build time and will be reused on each request.
-export async function getStaticPaths() {
+export async function getStaticPaths({ locales }) {
   const categories = await getCategories();
-  console.log({langGetStaticPaths: langsVar()});
+
+  const paths = [];
+  locales.forEach((locale) => {
+    categories.forEach((category) => {
+      paths.push({
+        params: {
+          slug: category.slug,
+          locale: locale
+        }
+      });
+    });
+  });
+
+  console.log('getStaticPaths before', categories.map(({ slug }) => ({ params: { slug, locale: '' } })))
+  console.log('getStaticPaths after', paths)
 
   return {
-    paths: categories.map(({ slug }) => ({ params: { slug, locale: langsVar() } })),
+    paths,
+    // paths: categories.map(({ slug }) => ({ params: { slug, locale: undefined } })),
     fallback: true,
   };
 }
@@ -62,3 +73,5 @@ export async function getStaticPaths() {
 CategoryPost.getLayout = function getLayout(page: ReactElement) {
   return <Layout>{page}</Layout>;
 };
+
+export default CategoryPost;
