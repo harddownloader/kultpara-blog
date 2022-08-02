@@ -1,12 +1,13 @@
-import React, {useState, useContext} from 'react';
-import { I18nContext } from "next-i18next";
+import React, { useState } from 'react';
+import { useTranslation } from "next-i18next";
 import Router, { useRouter } from 'next/router';
 import { useReactiveVar } from '@apollo/client'
 import { languagesVar } from '@/lib/cache';
 import { OutsideAlerter } from '@/hooks';
 
 export function LanguageSwitcher({}) {
-  const { i18n: { language } } = useContext(I18nContext);
+  // const { i18n: { language } } = useContext(I18nContext);
+  const { i18n: { language } } = useTranslation('common');
   const languages = useReactiveVar(languagesVar);
   const router = useRouter();
   const [ isDropdown, setIsDropdown ] = useState(false);
