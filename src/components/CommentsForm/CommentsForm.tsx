@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { submitComment } from '@/services';
 import { useTranslation } from "next-i18next";
 
-export const CommentsForm = ({slug}) => {
+export const CommentsForm = ({ slug }) => {
   const { t } = useTranslation('comments');
   const [error, setError] = useState(false);
   const [localStorage, setLocalStorage] = useState(null);
@@ -86,15 +86,15 @@ export const CommentsForm = ({slug}) => {
     <div className="bg-black border-2 border-white shadow-lg p-8 pb-12 mb-8">
       <h3 className="text-xl text-white mb-8 font-semibold border-b pb-4">{t('leave-a-reply')}</h3>
       <div className="grid grid-cols-1 gap-4 mb-4">
-        <textarea value={formData.comment} onChange={onInputChange}
+        <textarea value={formData.comment || ""} onChange={onInputChange}
                   className="p-4 outline-none w-full  h-40 focus:ring-2 focus:ring-gray-200 bg-gray-100 text-gray-700"
                   name="comment" placeholder={t('comment')}/>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
-        <input type="text" value={formData.name} onChange={onInputChange}
+        <input type="text" value={formData.name || ""} onChange={onInputChange}
                className="py-2 px-4 outline-none w-full focus:ring-2 focus:ring-gray-200 bg-gray-100 text-gray-700"
                placeholder={t('name')} name="name"/>
-        <input type="email" value={formData.email} onChange={onInputChange}
+        <input type="email" value={formData.email || ""} onChange={onInputChange}
                className="py-2 px-4 outline-none w-full focus:ring-2 focus:ring-gray-200 bg-gray-100 text-gray-700"
                placeholder={t('email')} name="email"/>
       </div>
