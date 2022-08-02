@@ -4,11 +4,13 @@ import Subscribe from "@/components/Subscribe/Subscribe";
 import Socials from "@/components/Socials/Socials";
 import {useReactiveVar} from "@apollo/client";
 import {socialsVar} from "@/lib/cache";
+import {useTranslation} from "next-i18next";
 
 
 export function Footer({}) {
   const socials = useReactiveVar(socialsVar);
   const [year] = useState(new Date().getFullYear());
+  const { t } = useTranslation('common');
 
   return (
     <div className={"container mx-auto px-10" +
@@ -20,7 +22,7 @@ export function Footer({}) {
       "              font-medium"}
     >
       <div className="w-full my-4">
-        <p className="text-lg capitalize text-center mb-1">receive news:</p>
+        <p className="text-lg capitalize text-center mb-1">{t('receive_news')}:</p>
         <Subscribe />
       </div>
       <div className="w-full flex justify-center">
