@@ -4,5 +4,8 @@
   "categories": "Categories",
   "more": "More",
   "page_not_found": "Page not found",
-  "go_back_home": "Go back home"
+  "go_back_home": "Go back home",
+  "receive_news": "receive news",
+  "subscribe": "Subscribe",
+  "subscribe_success_text": "You subscribed to the email newsletter!"
 }
