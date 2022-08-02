@@ -1,6 +1,5 @@
 import React, {ReactElement} from 'react';
 import { useRouter } from 'next/router';
-
 import {
   PostDetail,
   Categories,
@@ -11,10 +10,9 @@ import {
   Loader,
   AdjacentPosts,
   Layout
-} from '../../../components';
-import { getPosts, getPostDetails } from '../../../services';
-import CategoryPost from "../category/[slug]";
-import {serverSideTranslations} from "next-i18next/serverSideTranslations";
+} from '@/components';
+import { getPosts, getPostDetails } from '@/services';
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 
 const PostDetails = ({ post }) => {
@@ -55,7 +53,7 @@ export async function getStaticProps({ params, locale }) {
   return {
     props: {
       post: data,
-      ...(await serverSideTranslations(locale, ['common'])),
+      ...(await serverSideTranslations(locale, ['common', 'comments', 'header', 'footer'])),
     },
   };
 }
