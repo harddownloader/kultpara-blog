@@ -1,0 +1,1 @@
+export { AdjacentPosts } from './AdjacentPosts';
