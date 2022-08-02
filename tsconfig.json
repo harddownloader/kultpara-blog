@@ -14,14 +14,16 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "baseUrl": ".",
+    "baseUrl": "src",
     "paths": {
       "@/components": ["components"],
       "@/components/*": ["components/*"],
       "@/services": ["services"],
       "@/graphql": ["graphql"],
       "@/lib/*": ["lib/*"],
-      "@/types": ["types"]
+      "@/types": ["types"],
+      "@/types/*": ["types/*"],
+      "@/hooks": ["hooks"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
