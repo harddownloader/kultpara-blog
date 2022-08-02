@@ -6,7 +6,6 @@ import { languagesVar } from '@/lib/cache';
 import { OutsideAlerter } from '@/hooks';
 
 export function LanguageSwitcher({}) {
-  // const { i18n: { language } } = useContext(I18nContext);
   const { i18n: { language } } = useTranslation('common');
   const languages = useReactiveVar(languagesVar);
   const router = useRouter();
