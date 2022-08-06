@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export interface SocialNetwork {
   name: string
-  icon: string
+  icon: JSX.Element;
   link: string
 }
 
@@ -22,7 +22,7 @@ export const Socials = ({ socials }: SocialsProps) => {
             "              transition\n" +
             "              duration-500\n" +
             "              ease-in-out"}>
-            <social.icon />
+            <social.icon className={"text-4xl md:text-3xl"} />
           </span>
         </Link>
       );
@@ -30,7 +30,7 @@ export const Socials = ({ socials }: SocialsProps) => {
   }, [socials]);
 
   return (
-    <div className={"flex "}>
+    <div className={"flex"}>
       { socialsEl }
     </div>
   );
