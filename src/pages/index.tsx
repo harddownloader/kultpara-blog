@@ -29,7 +29,7 @@ function Home({ posts }) {
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const { locale } = context;
-  const posts = (await getPosts()) || [];
+  const posts = (await getPosts(locale)) || [];
 
   return {
     props: {
