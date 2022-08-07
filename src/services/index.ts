@@ -1,13 +1,13 @@
 import { request, gql } from 'graphql-request';
+import { LocaleEnum } from '@/types/Locale';
 
 const graphqlAPI: string = process.env.NEXT_PUBLIC_API_URI;
 
-console.log({graphqlAPI})
 
-export const getPosts = async () => {
+export const getPosts = async (locale: LocaleEnum) => {
   const query = gql`
-    query MyQuery {
-      postsConnection {
+    query MyQuery($locale:Yazik!) {
+      postsConnection(where: {yazik: $locale}) {
         edges {
           cursor
           node {
@@ -36,7 +36,7 @@ export const getPosts = async () => {
     }
   `;
 
-  const result = await request(graphqlAPI, query);
+  const result = await request(graphqlAPI, query, { locale });
 
   return result.postsConnection.edges;
 };
