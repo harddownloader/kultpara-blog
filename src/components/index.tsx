@@ -3,6 +3,7 @@ export { Header } from './Header';
 export { Footer } from './Footer';
 export { Loader } from './Loader';
 export { HomepageBlock } from './HomepageBlock';
+export { SearchpageBlock } from './SearchpageBlock';
 export { PostWidget } from './PostWidget';
 export { PostCard } from './PostCard';
 export { PostDetail } from './PostDetail';
