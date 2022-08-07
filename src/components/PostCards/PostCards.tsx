@@ -1,12 +1,10 @@
 import React, { useMemo, useState } from 'react';
 import { PostCard } from "@/components";
 import { Pagination } from '@/components/Pagination';
+import { Posts } from '@/types/Posts';
 
-type Props = {
 
-};
-
-export function PostCards({ posts }: Props) {
+export function PostCards({ posts }: Posts) {
   const [page, setPage] = useState(0);
   const countPostsPerPage = 2;
   const postsLength = posts.length;
