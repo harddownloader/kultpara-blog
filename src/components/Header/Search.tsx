@@ -1,9 +1,17 @@
 import React, { useState } from 'react';
-import { getSearchResults } from "@/services";
 import SearchIcon from '@mui/icons-material/Search';
+import { useRouter } from "next/router";
 
 export const Search = () => {
-  const [search, setSearch] = useState('');
+    const router = useRouter();
+    const [search, setSearch] = useState('');
+
+  const searchHandler = () => {
+      router.push({
+          pathname: '/search',
+          query: { search: search }
+      })
+  }
 
   return (
     <>
@@ -16,7 +24,7 @@ export const Search = () => {
           onChange={(e) => setSearch(e.target.value)}
         />
         <button
-          onClick={() => getSearchResults(search)}
+          onClick={() => searchHandler()}
           className={"p-2 bg-black border-2 border-white text-base text-white"}
         ><SearchIcon /></button>
       </div>
