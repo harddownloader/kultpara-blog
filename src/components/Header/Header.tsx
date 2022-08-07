@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Category } from "@/types/Category";
 import Link from 'next/link';
 import { BLOG_NAME, MAIN_WEBSITE } from "@/lib/const";
 import { getCategories } from '@/services';
@@ -24,29 +23,19 @@ export function Header({}) {
   }, []);
 
   return (
-    <div className={`container mx-auto px-10 mb-8`}>
-      <div className="w-full py-2 px-2 bg-black border-2 border-white md:px-8">
-        <div className="w-full py-2 bg-black md:flex md:justify-between">
+    <div className={`mb-8 md:container md:mx-auto md:px-10`}>
+      <div className="w-full py-4 px-2 bg-black border-2 border-white md:py-2 md:px-8">
+        <div className="w-full md:py-2 bg-black md:flex md:justify-between">
           <div className={"flex justify-center"}>
-            {/*<Link*/}
-            {/*  href={MAIN_WEBSITE}*/}
-            {/*>*/}
-            {/*  <span className={"text-sm md:text-base px-3 py-2 bg-black border-2 border-white text-white cursor-pointer hover:-translate-y-1\n" +*/}
-            {/*    "              transition\n" +*/}
-            {/*    "              duration-500\n" +*/}
-            {/*    "              ease-in-out"}>*/}
-            {/*    {t('go_to_website')}*/}
-            {/*  </span>*/}
-            {/*</Link>*/}
-
-            <Search />
+            <LanguageSwitcher />
           </div>
-          <div className="flex justify-center">
+
+          <div className="flex justify-center my-4 md:my-0">
             <Socials socials={socials} />
           </div>
         </div>
 
-        <div className="w-full flex justify-between py-8 bg-black">
+        <div className="w-full flex justify-center my-1 md:justify-between md:my-8 bg-black">
           <div className="flex justify-center align-baseline">
             <Link href={"/"}>
               <span className={"cursor-pointer font-bold text-4xl text-white"}>
@@ -68,12 +57,16 @@ export function Header({}) {
             </Link>
           </div>
 
-          <div className="flex justify-center  md:contents"></div>
+          <div className="flex justify-center md:contents"></div>
         </div>
 
-        <div className="w-full py-8 bg-black md:flex md:justify-between">
-          <MainMenu categories={categories} />
-          <LanguageSwitcher />
+        <div className="w-full py-2 md:py-8 bg-black md:flex md:justify-between">
+          <div className="w-full py-2 md:py-0 md:w-auto">
+            <MainMenu categories={categories} />
+          </div>
+          <div className="w-full flex justify-center md:w-auto">
+            <Search />
+          </div>
         </div>
       </div>
     </div>
