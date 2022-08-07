@@ -8,5 +8,8 @@
   "go_back_home": "Go back home",
   "receive_news": "receive news",
   "subscribe": "Subscribe",
-  "subscribe_success_text": "You subscribed to the email newsletter!"
+  "subscribe_success_text": "You subscribed to the email newsletter!",
+  "search": "Search",
+  "search_results": "Search results",
+  "search_no_results": "No results for your search"
 }
