@@ -8,7 +8,7 @@ import { API_URI as graphqlAPI, BACKEND_ACCESS_TOKEN } from "@/lib/const";
 
 export const getAllPosts = async () => {
   const query = gql`
-  query getAllPosts {
+  query GetAllPosts {
       postsConnection {
         edges {
           cursor
@@ -44,7 +44,7 @@ export const getAllPosts = async () => {
 
 export const getPosts = async (language: LocaleEnum) => {
   const query = gql`
-    query getPosts($language:Yazik!) {
+    query GetPosts($language:Yazik!) {
       postsConnection(where: {yazik: $language}) {
         edges {
           cursor
@@ -79,9 +79,9 @@ export const getPosts = async (language: LocaleEnum) => {
   return result.postsConnection.edges;
 };
 
-export const getCategories = async (language: string) => {
+export const getCategories = async (language: LocaleEnum) => {
   const query = gql`
-    query GetCategories($language:Yazik!) {
+    query GetCategories($language: Yazik!) {
         categories(where: {yazik: $language}) {
           name
           slug
@@ -96,7 +96,7 @@ export const getCategories = async (language: string) => {
 
 export const getAllCategories = async () => {
   const query = gql`
-    query GetCategories {
+    query GetAllCategories {
         categories {
           name
           slug
@@ -143,11 +143,11 @@ export const getPostDetails = async (slug: string) => {
   return result.post;
 };
 
-export const getSimilarPosts = async (categories: Array<string>, slug: string) => {
+export const getSimilarPosts = async (categories: Array<string>, slug: string, language: LocaleEnum) => {
   const query = gql`
-    query GetPostDetails($slug: String!, $categories: [String!]) {
+    query GetSimilarPosts($slug: String!, $categories: [String!], $language: Yazik!) {
       posts(
-        where: {slug_not: $slug, AND: {categories_some: {slug_in: $categories}}}
+        where: {slug_not: $slug, AND: {categories_some: {slug_in: $categories}, yazik: $language}}
         last: 3
       ) {
         title
@@ -159,18 +159,18 @@ export const getSimilarPosts = async (categories: Array<string>, slug: string) =
       }
     }
   `;
-  const result = await request(graphqlAPI, query, { slug, categories });
+  const result = await request(graphqlAPI, query, { slug, categories, language });
 
   return result.posts;
 };
 
-export const getAdjacentPosts = async (createdAt, slug: string) => {
+export const getAdjacentPosts = async (createdAt, slug: string, language: LocaleEnum) => {
   const query = gql`
-    query GetAdjacentPosts($createdAt: DateTime!,$slug:String!) {
+    query GetAdjacentPosts($createdAt: DateTime!, $slug:String!, $language: Yazik!) {
       next:posts(
         first: 1
         orderBy: createdAt_ASC
-        where: {slug_not: $slug, AND: {createdAt_gte: $createdAt}}
+        where: {slug_not: $slug, AND: {createdAt_gte: $createdAt, yazik: $language}}
       ) {
         title
         featuredImage {
@@ -182,7 +182,7 @@ export const getAdjacentPosts = async (createdAt, slug: string) => {
       previous:posts(
         first: 1
         orderBy: createdAt_DESC
-        where: {slug_not: $slug, AND: {createdAt_lte: $createdAt}}
+        where: {slug_not: $slug, AND: {createdAt_lte: $createdAt, yazik: $language}}
       ) {
         title
         featuredImage {
@@ -194,7 +194,7 @@ export const getAdjacentPosts = async (createdAt, slug: string) => {
     }
   `;
 
-  const result = await request(graphqlAPI, query, { slug, createdAt });
+  const result = await request(graphqlAPI, query, { slug, createdAt, language });
 
   return { next: result.next[0], previous: result.previous[0] };
 };
@@ -236,10 +236,10 @@ export const getCategoryPost = async (slug: string) => {
   return result.postsConnection.edges;
 };
 
-export const getFeaturedPosts = async () => {
+export const getFeaturedPosts = async (language: LocaleEnum) => {
   const query = gql`
-    query GetCategoryPost() {
-      posts(where: {featuredPost: true}) {
+    query GetFeaturedPosts($language: Yazik!) {
+      posts(where: {AND: {yazik: $language, featuredPost: true}}) {
         author {
           name
           photo {
@@ -256,7 +256,7 @@ export const getFeaturedPosts = async () => {
     }
   `;
 
-  const result = await request(graphqlAPI, query);
+  const result = await request(graphqlAPI, query, { language });
 
   return result.posts;
 };
@@ -289,12 +289,13 @@ export const getComments = async (slug: string) => {
   return result.comments;
 };
 
-export const getRecentPosts = async () => {
+export const getRecentPosts = async (language: LocaleEnum) => {
   const query = gql`
-    query GetPostDetails() {
+    query GetRecentPosts($language: Yazik!) {
       posts(
         orderBy: createdAt_ASC
         last: 3
+        where: {yazik: $language}
       ) {
         title
         featuredImage {
@@ -305,7 +306,7 @@ export const getRecentPosts = async () => {
       }
     }
   `;
-  const result = await request(graphqlAPI, query);
+  const result = await request(graphqlAPI, query, { language });
 
   return result.posts;
 };

@@ -12,16 +12,16 @@ export interface PostWidgetProps {
 }
 
 export const PostWidget = ({ categories, slug }: PostWidgetProps) => {
-  const { t } = useTranslation('common');
+  const { t, i18n: { language } } = useTranslation('common');
   const [relatedPosts, setRelatedPosts] = useState([]);
 
   useEffect(() => {
     if (slug) {
-      getSimilarPosts(categories, slug).then((result) => {
+      getSimilarPosts(categories, slug, language).then((result) => {
         setRelatedPosts(result);
       });
     } else {
-      getRecentPosts().then((result) => {
+      getRecentPosts(language).then((result) => {
         setRelatedPosts(result);
       });
     }

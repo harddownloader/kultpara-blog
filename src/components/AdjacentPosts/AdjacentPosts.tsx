@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react';
 
 import { AdjacentPostCard } from '@/components';
 import { getAdjacentPosts } from '@/services';
+import { useTranslation } from "next-i18next";
 
 export const AdjacentPosts = ({ createdAt, slug }) => {
+  const { i18n: { language } } = useTranslation('common');
   const [adjacentPost, setAdjacentPost] = useState(null);
   const [dataLoaded, setDataLoaded] = useState(false);
 
   useEffect(() => {
-    getAdjacentPosts(createdAt, slug).then((result) => {
+    getAdjacentPosts(createdAt, slug, language).then((result) => {
       setAdjacentPost(result);
       setDataLoaded(true);
     });

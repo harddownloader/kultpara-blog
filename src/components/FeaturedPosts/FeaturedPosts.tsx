@@ -4,6 +4,7 @@ import 'react-multi-carousel/lib/styles.css';
 
 import { FeaturedPostCard } from '@/components/FeaturedPostCard';
 import { getFeaturedPosts } from '@/services';
+import {useTranslation} from "next-i18next";
 
 const responsive = {
   superLargeDesktop: {
@@ -27,9 +28,10 @@ const responsive = {
 export const FeaturedPosts = () => {
   const [featuredPosts, setFeaturedPosts] = useState([]);
   const [dataLoaded, setDataLoaded] = useState(false);
+  const { i18n: { language } } = useTranslation('common');
 
   useEffect(() => {
-    getFeaturedPosts().then((result) => {
+    getFeaturedPosts(language).then((result) => {
       setFeaturedPosts(result);
       setDataLoaded(true);
     });
