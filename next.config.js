@@ -7,6 +7,14 @@ module.exports = {
   images: {
     domains: ['media.graphassets.com'],
   },
+  env: {
+    BLOG_NAME: process.env.NEXT_PUBLIC_BLOG_NAME,
+    API_URI: process.env.NEXT_PUBLIC_API_URI,
+    HOMEPAGE_MENU: process.env.NEXT_PUBLIC_HOMEPAGE_MENU,
+    GEOLOCATION: process.env.NEXT_PUBLIC_GEOLOCATION,
+    BACKEND_ACCESS_TOKEN: process.env.BACKEND_ACCESS_TOKEN ,
+    MAIN_WEBSITE: process.env.NEXT_MAIN_WEBSITE_DOMAIN
+  },
   // async redirects() {
   //   return [
   //     {
