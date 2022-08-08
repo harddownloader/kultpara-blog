@@ -1,5 +1,6 @@
-import { request, gql } from 'graphql-request';
+import { request, gql, GraphQLClient } from 'graphql-request';
 import { LocaleEnum } from '@/types/Locale';
+import { API_URI, BACKEND_ACCESS_TOKEN } from "@/lib/const";
 
 const graphqlAPI: string = process.env.NEXT_PUBLIC_API_URI;
 
@@ -215,7 +216,7 @@ export const getFeaturedPosts = async () => {
         slug
         createdAt
       }
-    }   
+    }
   `;
 
   const result = await request(graphqlAPI, query);
@@ -307,3 +308,19 @@ export const getSearchResults = async (searchQuery: string) => {
   const result = await request(graphqlAPI, query, { searchQuery });
   return result.postsConnection.edges;
 }
+
+export const addSubscriber = async (email) => {
+  const graphQLClient = new GraphQLClient(API_URI, {
+    headers: {
+      authorization: `Bearer ${BACKEND_ACCESS_TOKEN}`
+    }
+  })
+
+  const query = gql`
+    mutation MyMutation($email: String!) {
+      createSubscribe(data: {email: $email}) {
+        email
+      }
+    }`;
+  await graphQLClient.request(query, { email });
+};
