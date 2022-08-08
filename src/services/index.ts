@@ -1,13 +1,48 @@
 import { request, gql, GraphQLClient } from 'graphql-request';
 import { LocaleEnum } from '@/types/Locale';
-import { API_URI, BACKEND_ACCESS_TOKEN } from "@/lib/const";
+import { API_URI as graphqlAPI, BACKEND_ACCESS_TOKEN } from "@/lib/const";
 
-const graphqlAPI: string = process.env.NEXT_PUBLIC_API_URI;
+// const graphqlAPI: string = process.env.NEXT_PUBLIC_API_URI;
 
+export const getAllPosts = async () => {
+  const query = gql`
+  query getAllPosts {
+      postsConnection {
+        edges {
+          cursor
+          node {
+            author {
+              bio
+              name
+              id
+              photo {
+                url
+              }
+            }
+            createdAt
+            slug
+            title
+            excerpt
+            featuredImage {
+              url
+            }
+            categories {
+              name
+              slug
+            }
+          }
+        }
+      }
+    }`;
+
+  const result = await request(graphqlAPI, query);
+
+  return result.postsConnection.edges;
+}
 
 export const getPosts = async (language: LocaleEnum) => {
   const query = gql`
-    query MyQuery($language:Yazik!) {
+    query getPosts($language:Yazik!) {
       postsConnection(where: {yazik: $language}) {
         edges {
           cursor
@@ -42,7 +77,7 @@ export const getPosts = async (language: LocaleEnum) => {
   return result.postsConnection.edges;
 };
 
-export const getCategories = async (language) => {
+export const getCategories = async (language: string) => {
   const query = gql`
     query GetCategories($language:Yazik!) {
         categories(where: {yazik: $language}) {
@@ -310,7 +345,7 @@ export const getSearchResults = async (searchQuery: string) => {
 }
 
 export const addSubscriber = async (email) => {
-  const graphQLClient = new GraphQLClient(API_URI, {
+  const graphQLClient = new GraphQLClient(graphqlAPI, {
     headers: {
       authorization: `Bearer ${BACKEND_ACCESS_TOKEN}`
     }
