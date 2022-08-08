@@ -6,10 +6,10 @@ import { useTranslation } from "next-i18next";
 
 export const Categories = () => {
   const [categories, setCategories] = useState([]);
-  const { t } = useTranslation('common');
+  const { t, i18n: { language } } = useTranslation('common');
 
   useEffect(() => {
-    getCategories().then((newCategories) => {
+    getCategories(language).then((newCategories) => {
       setCategories(newCategories);
     });
   }, []);

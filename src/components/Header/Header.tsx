@@ -10,13 +10,14 @@ import { Search } from './Search';
 import { socialsVar } from '@/lib/cache';
 import { useReactiveVar } from "@apollo/client";
 
+
 export function Header({}) {
   const socials = useReactiveVar(socialsVar);
-  const { t } = useTranslation('common');
+  const { t, i18n: { language } } = useTranslation('common');
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    getCategories().then((newCategories) => {
+    getCategories(language).then((newCategories) => {
       setCategories(newCategories);
     });
   }, []);

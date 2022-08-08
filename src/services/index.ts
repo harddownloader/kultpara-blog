@@ -4,10 +4,10 @@ import { LocaleEnum } from '@/types/Locale';
 const graphqlAPI: string = process.env.NEXT_PUBLIC_API_URI;
 
 
-export const getPosts = async (locale: LocaleEnum) => {
+export const getPosts = async (language: LocaleEnum) => {
   const query = gql`
-    query MyQuery($locale:Yazik!) {
-      postsConnection(where: {yazik: $locale}) {
+    query MyQuery($language:Yazik!) {
+      postsConnection(where: {yazik: $language}) {
         edges {
           cursor
           node {
@@ -36,12 +36,27 @@ export const getPosts = async (locale: LocaleEnum) => {
     }
   `;
 
-  const result = await request(graphqlAPI, query, { locale });
+  const result = await request(graphqlAPI, query, { language });
 
   return result.postsConnection.edges;
 };
 
-export const getCategories = async () => {
+export const getCategories = async (language) => {
+  const query = gql`
+    query GetCategories($language:Yazik!) {
+        categories(where: {yazik: $language}) {
+          name
+          slug
+        }
+    }
+  `;
+
+  const result = await request(graphqlAPI, query, { language });
+
+  return result.categories;
+};
+
+export const getAllCategories = async () => {
   const query = gql`
     query GetCategories {
         categories {
