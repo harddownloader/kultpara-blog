@@ -11,7 +11,7 @@ import {
   AdjacentPosts,
   Layout
 } from '@/components';
-import { getPosts, getPostDetails } from '@/services';
+import { getAllPosts, getPostDetails } from '@/services';
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 
@@ -61,7 +61,7 @@ export async function getStaticProps({ params, locale }) {
 // Specify dynamic routes to pre-render pages based on data.
 // The HTML is generated at build time and will be reused on each request.
 export async function getStaticPaths() {
-  const posts = await getPosts();
+  const posts = await getAllPosts();
   return {
     paths: posts.map(({ node: { slug } }) => ({ params: { slug } })),
     fallback: true,
