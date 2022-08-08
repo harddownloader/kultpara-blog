@@ -1,6 +1,8 @@
 import { request, gql, GraphQLClient } from 'graphql-request';
 import { LocaleEnum } from '@/types/Locale';
+import { Comment } from '@/types/Comment';
 import { API_URI as graphqlAPI, BACKEND_ACCESS_TOKEN } from "@/lib/const";
+
 
 // const graphqlAPI: string = process.env.NEXT_PUBLIC_API_URI;
 
@@ -259,13 +261,13 @@ export const getFeaturedPosts = async () => {
   return result.posts;
 };
 
-export const submitComment = async (obj) => {
+export const submitComment = async (comment: Comment) => {
   const result = await fetch('/api/comments', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(obj),
+    body: JSON.stringify(comment),
   });
 
   return result.json();
@@ -344,7 +346,7 @@ export const getSearchResults = async (searchQuery: string) => {
   return result.postsConnection.edges;
 }
 
-export const addSubscriber = async (email) => {
+export const addSubscriber = async (email: string) => {
   const graphQLClient = new GraphQLClient(graphqlAPI, {
     headers: {
       authorization: `Bearer ${BACKEND_ACCESS_TOKEN}`

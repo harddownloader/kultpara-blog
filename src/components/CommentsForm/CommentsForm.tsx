@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { submitComment } from '@/services';
 import { useTranslation } from "next-i18next";
+import { Comment } from '@/types/Comment';
 
 export const CommentsForm = ({ slug }) => {
   const { t } = useTranslation('comments');
@@ -41,12 +42,12 @@ export const CommentsForm = ({ slug }) => {
 
   const handlePostSubmission = () => {
     setError(false);
-    const {name, email, comment, storeData} = formData;
+    const { name, email, comment, storeData } = formData;
     if (!name || !email || !comment) {
       setError(true);
       return;
     }
-    const commentObj = {
+    const commentObj: Comment = {
       name,
       email,
       comment,
