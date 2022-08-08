@@ -21,8 +21,8 @@ export const SearchPage = ({ posts }) => {
 };
 
 export async function getServerSideProps(context) {
-    const { query , locale } = context
-    const posts = (await getSearchResults(query.search)) || [];
+    const { query , locale } = context;
+    const posts = (await getSearchResults(query.search, locale)) || [];
 
     return {
         props: {

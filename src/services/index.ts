@@ -311,10 +311,12 @@ export const getRecentPosts = async (language: LocaleEnum) => {
   return result.posts;
 };
 
-export const getSearchResults = async (searchQuery: string) => {
+export const getSearchResults = async (searchQuery: string, language: LocaleEnum) => {
   const query = gql`
-    query GetSearchResults($searchQuery:String!) {
-      postsConnection(where: { _search: $searchQuery }) {
+    query GetSearchResults($searchQuery:String!, $language: Yazik!) {
+      postsConnection(where: {
+        AND: { _search: $searchQuery, yazik: $language }
+      }) {
         edges {
           cursor
           node {
@@ -343,7 +345,7 @@ export const getSearchResults = async (searchQuery: string) => {
     }
   `;
 
-  const result = await request(graphqlAPI, query, { searchQuery });
+  const result = await request(graphqlAPI, query, { searchQuery, language });
   return result.postsConnection.edges;
 }
 
