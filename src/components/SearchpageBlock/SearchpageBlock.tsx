@@ -17,7 +17,7 @@ export const SearchpageBlock = ({ posts }: Posts) => {
                 <div className="lg:col-span-8 col-span-1">
                     { posts?.length
                         ? <PostCards posts={posts} />
-                        : <p className={"text-white text-base"}>{ t('search_no_results') }</p>
+                        : <p className={"text-white text-lg"}>{ t('search_no_results') }</p>
                     }
                 </div>
                 <div className="lg:col-span-4 col-span-1">
