@@ -4,3 +4,9 @@ export interface Comment {
   comment: string
   slug: string
 }
+
+export interface PublishedComment {
+  name: string
+  createdAt: string
+  comment: string
+}

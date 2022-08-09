@@ -2,8 +2,14 @@ import React from 'react';
 import moment from 'moment';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Post } from '@/types/Posts';
 
-export const FeaturedPostCard = ({ post }) => (
+
+export interface FeaturedPostCardProps {
+  post: Post
+}
+
+export const FeaturedPostCard = ({ post }: FeaturedPostCardProps) => (
   <div className="relative h-72">
     <div className="absolute bg-center bg-no-repeat bg-cover shadow-md inline-block w-full h-72" style={{ backgroundImage: `url('${post.featuredImage.url}')` }} />
     <div className="absolute bg-center bg-gradient-to-b opacity-50 from-black-400 via-black-700 to-black w-full h-72" />

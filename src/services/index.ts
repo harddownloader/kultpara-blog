@@ -2,9 +2,11 @@ import { request, gql, GraphQLClient } from 'graphql-request';
 import { LocaleEnum } from '@/types/Locale';
 import { Comment } from '@/types/Comment';
 import { API_URI as graphqlAPI, BACKEND_ACCESS_TOKEN } from "@/lib/const";
+import { Category } from "@/types/Category";
 
 
 // const graphqlAPI: string = process.env.NEXT_PUBLIC_API_URI;
+
 
 export const getAllPosts = async () => {
   const query = gql`
@@ -143,7 +145,7 @@ export const getPostDetails = async (slug: string) => {
   return result.post;
 };
 
-export const getSimilarPosts = async (categories: Array<string>, slug: string, language: LocaleEnum) => {
+export const getSimilarPosts = async (categories: Array<Category>, slug: string, language: LocaleEnum) => {
   const query = gql`
     query GetSimilarPosts($slug: String!, $categories: [String!], $language: Yazik!) {
       posts(
@@ -164,7 +166,7 @@ export const getSimilarPosts = async (categories: Array<string>, slug: string, l
   return result.posts;
 };
 
-export const getAdjacentPosts = async (createdAt, slug: string, language: LocaleEnum) => {
+export const getAdjacentPosts = async (createdAt: string, slug: string, language: LocaleEnum) => {
   const query = gql`
     query GetAdjacentPosts($createdAt: DateTime!, $slug:String!, $language: Yazik!) {
       next:posts(

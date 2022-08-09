@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import parse from 'html-react-parser';
-
 import { getComments } from '@/services';
+import { PublishedComment } from '@/types/Comment';
 
-export const Comments = ({ slug }) => {
-  const [comments, setComments] = useState([]);
+
+export type CommentsProps = {
+  slug: string
+}
+
+export const Comments = ({ slug }: CommentsProps) => {
+  const [comments, setComments] = useState<Array<PublishedComment>>([]);
 
   useEffect(() => {
     getComments(slug).then((result) => {

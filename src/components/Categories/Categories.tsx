@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-
 import { getCategories } from '@/services';
 import { useTranslation } from "next-i18next";
+import { Category } from '@/types/Category';
+
 
 export const Categories = () => {
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState<Array<Category>>([]);
   const { t, i18n: { language } } = useTranslation('common');
 
   useEffect(() => {

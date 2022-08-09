@@ -1,12 +1,13 @@
 import React from 'react';
 import { PostCard } from "@/components";
-import { Posts } from '@/types/Posts';
+import { Post, Posts } from '@/types/Posts';
+
 
 export const NewPostsSection = ({ posts }: Posts) => {
   return (
       <>
         <div className="grid grid-col-1 md:grid-cols-2 gap-4">
-          {posts.map((post, index) => {
+          {posts.map((post: { node: Post }, index: number) => {
             return (
                 <div className={"flex items-center col-span-1"} >
                   <PostCard

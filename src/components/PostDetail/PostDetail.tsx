@@ -1,8 +1,13 @@
 import React from 'react';
 import moment from 'moment';
+import { PostDetails } from '@/types/Posts';
 
 
-export const PostDetail = ({ post }) => {
+export interface PostDetailProps {
+  post: PostDetails
+}
+
+export const PostDetail = ({ post }: PostDetailProps) => {
   const getContentFragment = (index, text, obj, type) => {
     let modifiedText = text;
 
@@ -22,11 +27,11 @@ export const PostDetail = ({ post }) => {
 
     switch (type) {
       case 'heading-three':
-        return <h3 key={index} className="text-xl font-semibold mb-4">{modifiedText.map((item, i) => <React.Fragment key={i}>{item}</React.Fragment>)}</h3>;
+        return <h3 key={index} className="text-xl font-semibold mb-4">{modifiedText.map((item, i: number) => <React.Fragment key={i}>{item}</React.Fragment>)}</h3>;
       case 'paragraph':
-        return <p key={index} className="mb-8">{modifiedText.map((item, i) => <React.Fragment key={i}>{item}</React.Fragment>)}</p>;
+        return <p key={index} className="mb-8">{modifiedText.map((item, i: number) => <React.Fragment key={i}>{item}</React.Fragment>)}</p>;
       case 'heading-four':
-        return <h4 key={index} className="text-md font-semibold mb-4">{modifiedText.map((item, i) => <React.Fragment key={i}>{item}</React.Fragment>)}</h4>;
+        return <h4 key={index} className="text-md font-semibold mb-4">{modifiedText.map((item, i: number) => <React.Fragment key={i}>{item}</React.Fragment>)}</h4>;
       case 'image':
         return (
           <img
@@ -69,8 +74,8 @@ export const PostDetail = ({ post }) => {
           </div>
           <h1 className="mb-8 text-white text-3xl font-semibold">{post.title}</h1>
           <div className="content-wrap text-white">
-            {post.content.raw.children.map((typeObj, index) => {
-              const children = typeObj.children.map((item, itemindex) => getContentFragment(itemindex, item.text, item));
+            {post.content.raw.children.map((typeObj, index: number) => {
+              const children = typeObj.children.map((item, itemindex: number) => getContentFragment(itemindex, item.text, item));
 
               return getContentFragment(index, children, typeObj, typeObj.type);
             })}

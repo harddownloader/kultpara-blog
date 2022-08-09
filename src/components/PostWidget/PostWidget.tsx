@@ -5,15 +5,17 @@ import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import { getSimilarPosts, getRecentPosts } from '@/services';
 import { Category } from "@/types/Category";
+import { Post } from "@/types/Posts";
+
 
 export interface PostWidgetProps {
-  categories: Array<Category>
-  slug: string
+  categories?: Array<Category>
+  slug?: string
 }
 
-export const PostWidget = ({ categories, slug }: PostWidgetProps) => {
+export const PostWidget = ({ categories=[], slug }: PostWidgetProps) => {
   const { t, i18n: { language } } = useTranslation('common');
-  const [relatedPosts, setRelatedPosts] = useState([]);
+  const [relatedPosts, setRelatedPosts] = useState<Array<Post>>([]);
 
   useEffect(() => {
     if (slug) {
@@ -29,7 +31,10 @@ export const PostWidget = ({ categories, slug }: PostWidgetProps) => {
 
   return (
     <div className="bg-black border-2 border-white shadow-lg p-8 pb-12 mb-8">
-      <h3 className="text-white text-xl mb-8 font-semibold border-b pb-4">{slug ? t('related-posts') : t('recent-posts')}</h3>
+      <h3 className="text-white text-xl mb-8 font-semibold border-b pb-4">
+        {slug ? t('related-posts') : t('recent-posts')}
+      </h3>
+
       {relatedPosts.map((post, index) => (
         <div key={index} className="flex items-center w-full mb-4">
           <div className="w-16 flex-none">

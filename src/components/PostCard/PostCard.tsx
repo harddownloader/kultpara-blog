@@ -3,9 +3,16 @@ import Image from 'next/image';
 import moment from 'moment';
 import Link from 'next/link';
 import { useTranslation } from "next-i18next";
+import { Post } from '@/types/Posts';
 
 
-export const PostCard = ({ post, isSmall, heightFull }) => {
+export interface PostCardProps {
+  post: Post
+  isSmall?: boolean
+  heightFull?: boolean
+}
+
+export const PostCard = ({ post, isSmall, heightFull }: PostCardProps) => {
   const { t } = useTranslation('common');
 
   return (
