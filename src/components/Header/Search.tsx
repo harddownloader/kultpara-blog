@@ -14,8 +14,6 @@ export const Search = memo(({ placeholder }) => {
       })
   }
 
-  console.log('Search render')
-
   return (
     <>
       <div>
