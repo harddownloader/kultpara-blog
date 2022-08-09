@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import { BLOG_NAME } from '@/lib/const';
-import Subscribe from "@/components/Subscribe/Subscribe";
-import Socials from "@/components/Socials/Socials";
-import {useReactiveVar} from "@apollo/client";
-import {socialsVar} from "@/lib/cache";
-import {useTranslation} from "next-i18next";
+import { Subscribe } from "@/components/Subscribe";
+import { Socials } from "@/components/Socials";
+import { useReactiveVar } from "@apollo/client";
+import { socialsVar } from "@/lib/cache";
+import { useTranslation } from "next-i18next";
 
 
-export function Footer({}) {
+export const Footer = memo(({}) => {
   const socials = useReactiveVar(socialsVar);
   const [year] = useState(new Date().getFullYear());
   const { t } = useTranslation('common');
@@ -35,4 +35,4 @@ export function Footer({}) {
       </div>
     </div>
   );
-}
+});

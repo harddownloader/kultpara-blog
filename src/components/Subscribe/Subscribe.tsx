@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import { useTranslation } from "next-i18next";
 import { addSubscriber as addSubscriberReq } from "@/services";
 import { useForm } from "react-hook-form";
 
-export const Subscribe = () => {
+export const Subscribe = memo(() => {
   const { t } = useTranslation('common');
   const [isSubscribed, setIsSubscribed] = useState(false);
 
@@ -55,6 +55,6 @@ export const Subscribe = () => {
       </div>}
     </>
   );
-};
+});
 
 export default Subscribe;
