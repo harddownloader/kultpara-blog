@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Header,
   Footer,
-} from '..';
+} from '@/components';
 
 export interface LayoutProps {
   children?: React.ReactNode;
