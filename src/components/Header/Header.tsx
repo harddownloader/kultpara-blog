@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import Link from 'next/link';
 import { BLOG_NAME, MAIN_WEBSITE } from "@/lib/const";
 import { getCategories } from '@/services';
@@ -9,18 +9,20 @@ import { MainMenu } from './MainMenu';
 import { Search } from './Search';
 import { socialsVar } from '@/lib/cache';
 import { useReactiveVar } from "@apollo/client";
+import { Logo } from './Logo';
 
 
-export function Header({}) {
+export const Header = memo(({}) => {
   const socials = useReactiveVar(socialsVar);
-  const { t, i18n: { language } } = useTranslation('common');
+  const { t, i18n } = useTranslation('common');
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    getCategories(language).then((newCategories) => {
+    if (i18n?.language) getCategories(i18n.language).then((newCategories) => {
       setCategories(newCategories);
     });
-  }, []);
+  }, [i18n?.language]);
+
 
   return (
     <div className={`mb-8 md:container md:mx-auto md:px-10`}>
@@ -36,26 +38,7 @@ export function Header({}) {
         </div>
 
         <div className="w-full flex justify-center my-1 md:justify-between md:my-8 bg-black">
-          <div className="flex justify-center align-baseline">
-            <Link href={"/"}>
-              <span className={"cursor-pointer font-bold text-4xl text-white"}>
-                { BLOG_NAME }
-              </span>
-            </Link>
-
-            <Link href={"/"}>
-              <span className={"cursor-pointer font-thin text-4xl text-white capitalize"}>
-                { t('blog') }
-              </span>
-            </Link>
-            <Link href={"/"}>
-              <img
-                src="/short_logo.jpg"
-                alt={`Blog ${BLOG_NAME}`}
-                className={"h-10"}
-              />
-            </Link>
-          </div>
+          <Logo name={BLOG_NAME} blogText={t('blog')} />
 
           <div className="flex justify-center md:contents"></div>
         </div>
@@ -65,10 +48,10 @@ export function Header({}) {
             <MainMenu categories={categories} />
           </div>
           <div className="w-full flex justify-center md:w-auto">
-            <Search />
+            <Search placeholder={`${t('search')}...`} />
           </div>
         </div>
       </div>
     </div>
   );
-}
+});

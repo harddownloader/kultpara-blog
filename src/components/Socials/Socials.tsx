@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, memo } from 'react';
 import Link from "next/link";
 
 
@@ -12,7 +12,7 @@ export interface SocialsProps {
   socials: Array<SocialNetwork>
 }
 
-export const Socials = ({ socials }: SocialsProps) => {
+export const Socials = memo(({ socials }: SocialsProps) => {
   const socialsEl = useMemo(() => {
     return socials.filter(social => Boolean(social.link)).map((social) => {
       return (
@@ -34,6 +34,6 @@ export const Socials = ({ socials }: SocialsProps) => {
       { socialsEl }
     </div>
   );
-};
+});
 
 export default Socials;

@@ -4,9 +4,10 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { getAllCategories, getCategoryPost } from '@/services';
 import { PostCard, Categories, Loader, Layout } from '@/components';
 import { useTranslation } from "next-i18next";
+import { Posts } from '@/types/Posts';
 
 
-const CategoryPost = ({ posts }) => {
+const CategoryPost = ({ posts }: Posts) => {
   const router = useRouter();
   const { t } = useTranslation('common');
 
@@ -53,7 +54,6 @@ export async function getStaticProps({ params, locale }) {
 // The HTML is generated at build time and will be reused on each request.
 export async function getStaticPaths(context) {
   const { locales } = context;
-  console.log({ context })
   const categories = await getAllCategories();
 
   const paths = [];
@@ -68,12 +68,8 @@ export async function getStaticPaths(context) {
     });
   });
 
-  console.log('getStaticPaths before', categories.map(({ slug }) => ({ params: { slug, locale: '' } })))
-  console.log('getStaticPaths after', paths)
-
   return {
     paths,
-    // paths: categories.map(({ slug }) => ({ params: { slug, locale: undefined } })),
     fallback: true,
   };
 }

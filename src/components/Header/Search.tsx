@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import { useRouter } from "next/router";
-import { useTranslation } from "next-i18next";
 
-export const Search = () => {
-    const router = useRouter();
-    const [search, setSearch] = useState('');
-    const { t } = useTranslation('common');
+
+export const Search = memo(({ placeholder }) => {
+  const router = useRouter();
+  const [search, setSearch] = useState('');
 
   const searchHandler = () => {
       router.push({
@@ -15,13 +14,15 @@ export const Search = () => {
       })
   }
 
+  console.log('Search render')
+
   return (
     <>
       <div>
         <input
           type="text"
           name="search"
-          placeholder={`${t('search')}...`}
+          placeholder={placeholder}
           className={"p-2 bg-white text-base text-black"}
           onChange={(e) => setSearch(e.target.value)}
         />
@@ -32,6 +33,6 @@ export const Search = () => {
       </div>
     </>
   );
-};
+});
 
 export default Search;
