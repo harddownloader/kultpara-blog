@@ -1,60 +1,56 @@
 import React, { useState } from 'react';
 import { useTranslation } from "next-i18next";
 import { addSubscriber as addSubscriberReq } from "@/services";
-
+import { useForm } from "react-hook-form";
 
 export const Subscribe = () => {
-  const [subscribe, setSubscribe] = useState({
-    isSubscribed: false,
-    email: ''
-  });
   const { t } = useTranslation('common');
+  const [isSubscribed, setIsSubscribed] = useState(false);
 
-  const addSubscriber = () => {
-    changeSubscribeStatusHandler(true);
-    sendEmailHandler()
+  const { register, handleSubmit, formState: { errors }, reset } = useForm();
+
+  const onSubmit = async (data: { email: string }) => {
+    if(!isSubscribed) addSubscriber(data.email);
+  };
+
+  const addSubscriber = (email: string) => {
+    handleSubmit(onSubmit);
+    setIsSubscribed(true);
+    sendEmailHandler(email);
+    reset();
   }
 
-  const sendEmailHandler = () => {
-    if (subscribe?.email) {
-      const resAddSubscriber = addSubscriberReq(subscribe.email);
-      console.log({resAddSubscriber})
-    }
-  }
-
-  const subscriberHandler = (e: { target: { name: string; value: string; }; }) => {
-    setSubscribe({
-      ...subscribe,
-      [e.target.name]: e.target.value
-    });
-  }
-
-  const changeSubscribeStatusHandler = (status: boolean) => {
-    setSubscribe({
-      ...subscribe,
-      isSubscribed: status
-    });
+  const sendEmailHandler = (email: string) => {
+    const resAddSubscriber = addSubscriberReq(email);
   }
 
   return (
     <>
       <div className="flex justify-center">
-        <input
-          type="text"
-          name="email"
-          placeholder={"Email"}
-          className={"p-2 bg-white text-base text-black"}
-          value={subscribe.email}
-          onChange={subscriberHandler}
-        />
-        <button
-          onClick={() => {
-            if(!subscribe.isSubscribed) addSubscriber();
-          }}
-          className={"p-2 bg-black border-2 border-white text-base text-white"}
-        >{ t('subscribe') }</button>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <input
+            id="email"
+            className={"p-2 bg-white text-base text-black"}
+            {...register("email", {
+              required: "required",
+              pattern: {
+                value: /\S+@\S+\.\S+/,
+                message: t('subscribe_error_text')
+              }
+            })}
+            type="email"
+            placeholder={"Email"}
+          />
+          <button
+            type="submit"
+            className={"p-2 bg-black border-2 border-white text-base text-white"}
+          >{ t('subscribe') }</button>
+        </form>
       </div>
-      {subscribe.isSubscribed && <div className="subscribed_msg m-1 text-center">
+      {errors.email && <div className="subscribed_msg m-1 text-center">
+        <p className={"text-base text-white"}>{ errors.email.message }</p>
+      </div>}
+      {isSubscribed && <div className="subscribed_msg m-1 text-center">
         <p className={"text-base text-white"}>{ t('subscribe_success_text') }</p>
       </div>}
     </>
