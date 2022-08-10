@@ -61,8 +61,7 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
   return {
     props: {
       post: postDetails,
-      // @ts-ignore
-      ...(await serverSideTranslations(locale, ['common', 'comments', 'header', 'footer'])),
+      ...(await serverSideTranslations(locale as string, ['common', 'comments', 'header', 'footer'])),
     },
   };
 }

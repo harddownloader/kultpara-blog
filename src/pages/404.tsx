@@ -4,6 +4,7 @@ import { NotFoundSeo } from "@/components/seo/NotFoundSeo";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { Layout } from "@/components";
+import {GetStaticProps} from "next";
 
 
 function Custom404() {
@@ -39,10 +40,10 @@ function Custom404() {
   );
 }
 
-export const getStaticProps = async ({ locale }) => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
-      ...await serverSideTranslations(locale),
+      ...await serverSideTranslations(locale as string),
     }
   };
 }

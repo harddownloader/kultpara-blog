@@ -8,7 +8,14 @@ const graphqlAPI = API_URI;
  *************************************************************** */
 
 // export a default function for API route to work
-export default async function asynchandler(req, res) {
+export default async function asynchandler(req: {
+  body: {
+    name: string,
+    email: string,
+    comment: string,
+    slug: string
+  }
+}, res: any) {
   const graphQLClient = new GraphQLClient((graphqlAPI), {
     headers: {
       authorization: `Bearer ${BACKEND_ACCESS_TOKEN}`,

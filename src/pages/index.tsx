@@ -1,16 +1,16 @@
-import { GetStaticPaths, GetStaticPropsContext, InferGetStaticPropsType } from "next";
+import {GetStaticPaths, GetStaticProps, GetStaticPropsContext, InferGetStaticPropsType} from "next";
 import React, { ReactElement } from "react";
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-
 import {
   HomepageBlock,
   Layout
 } from "@/components";
 import { BaseSeo } from "@/components/seo/BaseSeo";
 import { getPosts } from "@/services";
+import { LocaleEnum } from "@/types/Locale";
+import { Posts } from '@/types/Posts';
 
-
-function Home({ posts }) {
+function Home({ posts }: Posts) {
   return (
     <>
       <BaseSeo />
@@ -27,13 +27,13 @@ function Home({ posts }) {
 }
 
 
-export const getStaticProps = async (context: GetStaticPropsContext) => {
+export const getStaticProps: GetStaticProps = async (context) => {
   const { locale } = context;
-  const posts = (await getPosts(locale)) || [];
+  const posts = (await getPosts(locale as LocaleEnum)) || [];
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common', 'comments', 'header', 'footer'])),
+      ...(await serverSideTranslations(locale as string, ['common', 'comments', 'header', 'footer'])),
       posts,
     },
     revalidate: 60 * 60, // value in seconds, how often ISR will trigger on the server
