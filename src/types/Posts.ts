@@ -21,9 +21,18 @@ export interface Post {
   excerpt: string
 
   content?: {
-    raw?: any
+    raw?: {
+      children: Array<{
+        // can this nesting be of any depth?
+        children: Array<{
+          text: string
+        }>
+        type: string
+      }>
+    }
   }
 }
+
 
 export interface PostDetails {
   title: string
