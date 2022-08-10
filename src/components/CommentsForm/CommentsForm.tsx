@@ -1,14 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, {
+  useState,
+  useEffect
+} from 'react';
 import { submitComment } from '@/services';
 import { useTranslation } from "next-i18next";
 import { Comment } from '@/types/Comment';
 
-export const CommentsForm = ({ slug }) => {
+
+export interface CommentsFormProps {
+  slug: string
+}
+
+export interface FormData {
+  name: string | null
+  email: string | null
+  comment?: string | null
+  storeData: string | boolean | null
+}
+
+export const CommentsForm = ({ slug }: CommentsFormProps) => {
   const { t } = useTranslation('comments');
   const [error, setError] = useState(false);
   const [localStorage, setLocalStorage] = useState(null);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: null,
     email: null,
     comment: null,
@@ -17,16 +32,16 @@ export const CommentsForm = ({ slug }) => {
 
   useEffect(() => {
     setLocalStorage(window.localStorage);
-    const initalFormData = {
+    const initFormData: FormData = {
       name: window.localStorage.getItem('name'),
       email: window.localStorage.getItem('email'),
       storeData: window.localStorage.getItem('name') || window.localStorage.getItem('email'),
     };
-    setFormData(initalFormData);
+    setFormData(initFormData);
   }, []);
 
-  const onInputChange = (e) => {
-    const {target} = e;
+  const onInputChange = (e: any): void => {
+    const { target } = e;
     if (target.type === 'checkbox') {
       setFormData((prevState) => ({
         ...prevState,
@@ -40,7 +55,7 @@ export const CommentsForm = ({ slug }) => {
     }
   };
 
-  const handlePostSubmission = () => {
+  const handlePostSubmission = (): void => {
     setError(false);
     const { name, email, comment, storeData } = formData;
     if (!name || !email || !comment) {
@@ -101,7 +116,7 @@ export const CommentsForm = ({ slug }) => {
       </div>
       <div className="grid grid-cols-1 gap-4 mb-4">
         <div>
-          <input checked={formData.storeData} onChange={onInputChange} type="checkbox" id="storeData" name="storeData"
+          <input checked={Boolean(formData.storeData)} onChange={onInputChange} type="checkbox" id="storeData" name="storeData"
                  value="true"/>
           <label className="text-gray-100 cursor-pointer ml-2" htmlFor="storeData">{t('save_comment_data')}</label>
         </div>
