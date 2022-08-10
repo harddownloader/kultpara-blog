@@ -1,5 +1,6 @@
-import React, {ReactElement} from 'react';
+import React, { ReactElement } from 'react';
 import { useRouter } from 'next/router';
+import { GetStaticPaths, GetStaticProps } from 'next'
 import {
   PostDetail,
   Categories,
@@ -13,9 +14,15 @@ import {
 } from '@/components';
 import { getAllPosts, getPostDetails } from '@/services';
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { PostDetails, PostWrap } from '@/types/Posts';
+import {PathType} from "@/types/Pathes";
 
 
-const PostDetails = ({ post }) => {
+export interface PostDetailsPageProps {
+  post: PostDetails
+}
+
+const PostDetails = ({ post }: PostDetailsPageProps) => {
   const router = useRouter();
 
   if (router.isFallback) {
@@ -44,30 +51,49 @@ const PostDetails = ({ post }) => {
     </>
   );
 };
-export default PostDetails;
+
 
 // Fetch data at build time
-export async function getStaticProps({ params, locale }) {
-  const data = await getPostDetails(params.slug);
+export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
+  // @ts-ignore
+  const postDetails = params?.slug ? await getPostDetails(params.slug) : null;
 
   return {
     props: {
-      post: data,
+      post: postDetails,
+      // @ts-ignore
       ...(await serverSideTranslations(locale, ['common', 'comments', 'header', 'footer'])),
     },
   };
 }
 
-// Specify dynamic routes to pre-render pages based on data.
-// The HTML is generated at build time and will be reused on each request.
-export async function getStaticPaths() {
-  const posts = await getAllPosts();
+export const getStaticPaths: GetStaticPaths = async (context) => {
+  const { locales } = context;
+  const languages: Array<string> = locales || [];
+  const posts: Array<PostWrap> = await getAllPosts();
+
+  const paths: Array<PathType> = [];
+  languages.forEach((locale) => {
+    posts.forEach((post) => {
+      paths.push({
+        params: {
+          slug: post.node.slug,
+          locale: locale
+        }
+      });
+    });
+  });
+
   return {
-    paths: posts.map(({ node: { slug } }) => ({ params: { slug } })),
+    // paths: posts.map(({ node: { slug } }) => ({ params: { slug } })),
+    paths,
     fallback: true,
   };
 }
 
+// @ts-ignore
 PostDetails.getLayout = function getLayout(page: ReactElement) {
   return <Layout>{page}</Layout>;
 };
+
+export default PostDetails;

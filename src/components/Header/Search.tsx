@@ -3,7 +3,11 @@ import SearchIcon from '@mui/icons-material/Search';
 import { useRouter } from "next/router";
 
 
-export const Search = memo(({ placeholder }) => {
+export interface SearchProps {
+  placeholder: string
+}
+
+export const Search = memo(({ placeholder }: SearchProps) => {
   const router = useRouter();
   const [search, setSearch] = useState('');
 

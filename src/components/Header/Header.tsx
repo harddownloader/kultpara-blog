@@ -10,18 +10,20 @@ import { Search } from './Search';
 import { socialsVar } from '@/lib/cache';
 import { useReactiveVar } from "@apollo/client";
 import { Logo } from './Logo';
+import { LocaleEnum } from "@/types/Locale";
 
 
 export const Header = memo(({}) => {
   const socials = useReactiveVar(socialsVar);
-  const { t, i18n } = useTranslation('common');
+  const { t, i18n: { language } } = useTranslation('common');
+  const langEnum: LocaleEnum = language as LocaleEnum;
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    if (i18n?.language) getCategories(i18n.language).then((newCategories) => {
+    if (language) getCategories(langEnum).then((newCategories) => {
       setCategories(newCategories);
     });
-  }, [i18n?.language]);
+  }, [language]);
 
 
   return (

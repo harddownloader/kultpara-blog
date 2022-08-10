@@ -2,7 +2,6 @@ import { request, gql, GraphQLClient } from 'graphql-request';
 import { LocaleEnum } from '@/types/Locale';
 import { Comment } from '@/types/Comment';
 import { API_URI as graphqlAPI, BACKEND_ACCESS_TOKEN } from "@/lib/const";
-import { Category } from "@/types/Category";
 
 
 // const graphqlAPI: string = process.env.NEXT_PUBLIC_API_URI;
@@ -145,7 +144,12 @@ export const getPostDetails = async (slug: string) => {
   return result.post;
 };
 
-export const getSimilarPosts = async (categories: Array<Category>, slug: string, language: LocaleEnum) => {
+
+export const getSimilarPosts = async (
+  categories: Array<string>, // categories is array of category slugs
+  slug: string,
+  language: LocaleEnum
+) => {
   const query = gql`
     query GetSimilarPosts($slug: String!, $categories: [String!], $language: Yazik!) {
       posts(

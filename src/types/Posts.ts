@@ -41,6 +41,10 @@ export interface PostDetails {
   }
 }
 
+export type PostWrap = {
+  node: Post
+}
+
 export type Posts = {
-    posts: any
+    posts: Array<PostWrap>
 };

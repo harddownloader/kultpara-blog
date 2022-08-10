@@ -4,7 +4,8 @@ import 'react-multi-carousel/lib/styles.css';
 
 import { FeaturedPostCard } from '@/components/FeaturedPostCard';
 import { getFeaturedPosts } from '@/services';
-import {useTranslation} from "next-i18next";
+import { useTranslation } from "next-i18next";
+import { LocaleEnum } from "@/types/Locale";
 
 const responsive = {
   superLargeDesktop: {
@@ -29,13 +30,14 @@ export const FeaturedPosts = () => {
   const [featuredPosts, setFeaturedPosts] = useState([]);
   const [dataLoaded, setDataLoaded] = useState(false);
   const { i18n: { language } } = useTranslation('common');
+  const langEnum: LocaleEnum = language as LocaleEnum;
 
   useEffect(() => {
-    getFeaturedPosts(language).then((result) => {
+    if (language) getFeaturedPosts(langEnum).then((result) => {
       setFeaturedPosts(result);
       setDataLoaded(true);
     });
-  }, []);
+  }, [language]);
 
   const customLeftArrow = (
     <div className="absolute arrow-btn left-0 flex justify-center py-3 cursor-pointer bg-black border-2 border-white rounded-full">

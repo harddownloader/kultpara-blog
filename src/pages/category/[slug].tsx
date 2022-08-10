@@ -1,10 +1,13 @@
 import React, { ReactElement } from 'react';
 import { useRouter } from 'next/router';
+import { GetStaticPaths, GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { getAllCategories, getCategoryPost } from '@/services';
 import { PostCard, Categories, Loader, Layout } from '@/components';
 import { useTranslation } from "next-i18next";
 import { Posts } from '@/types/Posts';
+import { PathType } from "@/types/Pathes";
+import { Category } from "@/types/Category";
 
 
 const CategoryPost = ({ posts }: Posts) => {
@@ -37,10 +40,8 @@ const CategoryPost = ({ posts }: Posts) => {
   );
 };
 
-// Fetch data at build time
-export async function getStaticProps({ params, locale }) {
-
-  const posts = await getCategoryPost(params.slug);
+export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
+  const posts = (params?.slug && typeof params.slug === 'string') ? await getCategoryPost(params.slug) : [];
 
   return {
     props: {
@@ -50,14 +51,14 @@ export async function getStaticProps({ params, locale }) {
   };
 }
 
-// Specify dynamic routes to pre-render pages based on data.
-// The HTML is generated at build time and will be reused on each request.
-export async function getStaticPaths(context) {
-  const { locales } = context;
-  const categories = await getAllCategories();
 
-  const paths = [];
-  locales.forEach((locale) => {
+export const getStaticPaths: GetStaticPaths = async (context) => {
+  const { locales } = context;
+  const languages: Array<string> = locales || [];
+  const categories: Array<Category> = await getAllCategories();
+
+  const paths: Array<PathType> = [];
+  languages.forEach((locale) => {
     categories.forEach((category) => {
       paths.push({
         params: {

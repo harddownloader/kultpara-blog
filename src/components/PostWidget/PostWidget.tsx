@@ -4,30 +4,31 @@ import moment from 'moment';
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import { getSimilarPosts, getRecentPosts } from '@/services';
-import { Category } from "@/types/Category";
 import { Post } from "@/types/Posts";
+import { LocaleEnum } from '@/types/Locale';
 
 
 export interface PostWidgetProps {
-  categories?: Array<Category>
+  categories?: Array<string> // Array with slugs of Category
   slug?: string
 }
 
 export const PostWidget = ({ categories=[], slug }: PostWidgetProps) => {
   const { t, i18n: { language } } = useTranslation('common');
+  const langEnum: LocaleEnum = language as LocaleEnum;
   const [relatedPosts, setRelatedPosts] = useState<Array<Post>>([]);
 
   useEffect(() => {
-    if (slug) {
-      getSimilarPosts(categories, slug, language).then((result) => {
+    if (slug && language) {
+      getSimilarPosts(categories, slug, langEnum).then((result) => {
         setRelatedPosts(result);
       });
-    } else {
-      getRecentPosts(language).then((result) => {
+    } else if (language) {
+      getRecentPosts(langEnum).then((result) => {
         setRelatedPosts(result);
       });
     }
-  }, [slug]);
+  }, [slug, language]);
 
   return (
     <div className="bg-black border-2 border-white shadow-lg p-8 pb-12 mb-8">

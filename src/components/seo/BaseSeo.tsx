@@ -1,6 +1,6 @@
 import { NextSeo } from "next-seo";
 
-import { BLOG_NAME } from "../../lib/const";
+import { BLOG_NAME } from "@/lib/const";
 
 interface BaseSeoProps {
   title?: string;

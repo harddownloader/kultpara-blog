@@ -3,17 +3,19 @@ import Link from 'next/link';
 import { getCategories } from '@/services';
 import { useTranslation } from "next-i18next";
 import { Category } from '@/types/Category';
+import { LocaleEnum } from "@/types/Locale";
 
 
 export const Categories = () => {
   const [categories, setCategories] = useState<Array<Category>>([]);
   const { t, i18n: { language } } = useTranslation('common');
+  const langEnum: LocaleEnum = language as LocaleEnum;
 
   useEffect(() => {
-    getCategories(language).then((newCategories) => {
+    if (language) getCategories(langEnum).then((newCategories) => {
       setCategories(newCategories);
     });
-  }, []);
+  }, [language]);
 
   return (
     <div className="bg-black border-2 border-white shadow-lg p-8 pb-12 mb-8">
