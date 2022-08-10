@@ -21,7 +21,7 @@ export interface FormData {
 export const CommentsForm = ({ slug }: CommentsFormProps) => {
   const { t } = useTranslation('comments');
   const [error, setError] = useState(false);
-  const [localStorage, setLocalStorage] = useState(null);
+  const [localStorage, setLocalStorage] = useState<Storage | null>(null);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     name: null,
@@ -31,13 +31,16 @@ export const CommentsForm = ({ slug }: CommentsFormProps) => {
   });
 
   useEffect(() => {
-    setLocalStorage(window.localStorage);
-    const initFormData: FormData = {
-      name: window.localStorage.getItem('name'),
-      email: window.localStorage.getItem('email'),
-      storeData: window.localStorage.getItem('name') || window.localStorage.getItem('email'),
-    };
-    setFormData(initFormData);
+    if (typeof window !== "undefined") {
+      setLocalStorage(window.localStorage);
+      const initFormData: FormData = {
+        name: window.localStorage.getItem('name'),
+        email: window.localStorage.getItem('email'),
+        storeData: window.localStorage.getItem('name') || window.localStorage.getItem('email'),
+      };
+      setFormData(initFormData);
+    }
+
   }, []);
 
   const onInputChange = (e: any): void => {
@@ -69,13 +72,16 @@ export const CommentsForm = ({ slug }: CommentsFormProps) => {
       slug,
     };
 
-    if (storeData) {
-      localStorage.setItem('name', name);
-      localStorage.setItem('email', email);
-    } else {
-      localStorage.removeItem('name');
-      localStorage.removeItem('email');
+    if (typeof window !== "undefined") {
+      if (storeData) {
+        window.localStorage.setItem('name', name);
+        window.localStorage.setItem('email', email);
+      } else {
+        window.localStorage.removeItem('name');
+        window.localStorage.removeItem('email');
+      }
     }
+
 
     submitComment(commentObj)
       .then((res) => {
