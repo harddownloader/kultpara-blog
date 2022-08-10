@@ -1,13 +1,32 @@
 import React, { useState, memo } from 'react';
 import { useTranslation } from "next-i18next";
 import { addSubscriber as addSubscriberReq } from "@/services";
-import { useForm } from "react-hook-form";
+import { useForm, Resolver  } from "react-hook-form";
+
+
+type FormValues = {
+  email: string;
+};
+
+const resolver: Resolver<FormValues> = async (values) => {
+  return {
+    values: values.email ? values : {},
+    errors: !values.email
+      ? {
+        email: {
+          type: 'required',
+          message: '... some error msg ...',
+        },
+      }
+      : {},
+  };
+};
 
 export const Subscribe = memo(() => {
   const { t } = useTranslation('common');
   const [isSubscribed, setIsSubscribed] = useState(false);
 
-  const { register, handleSubmit, formState: { errors }, reset } = useForm();
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<FormValues>({ resolver });
 
   const onSubmit = async (data: { email: string }) => {
     if(!isSubscribed) addSubscriber(data.email);
@@ -23,6 +42,7 @@ export const Subscribe = memo(() => {
   const sendEmailHandler = (email: string) => {
     const resAddSubscriber = addSubscriberReq(email);
   }
+
 
   return (
     <>
