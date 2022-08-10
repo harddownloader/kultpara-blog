@@ -1,12 +1,7 @@
 import React, { useMemo, memo } from 'react';
 import Link from "next/link";
+import { SocialNetwork } from "@/types/Socials";
 
-
-export interface SocialNetwork {
-  name: string
-  icon: JSX.Element;
-  link: string
-}
 
 export interface SocialsProps {
   socials: Array<SocialNetwork>
