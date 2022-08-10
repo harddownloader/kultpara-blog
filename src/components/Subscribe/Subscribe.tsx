@@ -1,7 +1,7 @@
 import React, { useState, memo } from 'react';
 import { useTranslation } from "next-i18next";
 import { addSubscriber as addSubscriberReq } from "@/services";
-import { useForm, Resolver  } from "react-hook-form";
+import { useForm, Resolver } from "react-hook-form";
 
 
 type FormValues = {
