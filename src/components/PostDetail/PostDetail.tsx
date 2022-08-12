@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import { PostDetails } from '@/types/Posts';
-
+import Image from 'next/image';
 
 export interface PostDetailProps {
   post: PostDetails
@@ -39,7 +39,7 @@ const getContentFragment = (index: number, text: any, obj: any, type: string="")
               </h4>);
     case 'image':
       return (
-        <img
+        <Image
           key={index}
           alt={obj.title}
           height={obj.height}
@@ -57,20 +57,21 @@ export const PostDetail = ({ post }: PostDetailProps) => {
   return (
     <>
       <div className="bg-black border-2 border-white shadow-lg lg:p-8 pb-12 mb-8">
-        <div className="relative overflow-hidden shadow-md mb-6">
-          <img
+        <div className="relative h-80 md:h-96 overflow-hidden shadow-md mb-6">
+          <Image
             src={post.featuredImage.url}
-            alt=""
-            className="object-top h-full w-full object-cover  shadow-lg rounded-t-lg lg:rounded-lg"
+            alt={post.title}
+            layout='fill'
+            className="object-top h-full w-full object-cover shadow-lg rounded-t-lg lg:rounded-lg"
           />
         </div>
         <div className="px-4 lg:px-0">
           <div className="flex items-center mb-8 w-full">
             <div className="hidden md:flex items-center justify-center lg:mb-0 lg:w-auto mr-8 items-center">
-              <img
+              <Image
                 alt={post.author.name}
-                height="30px"
-                width="30px"
+                height={30}
+                width={30}
                 className="align-middle rounded-full"
                 src={post.author.photo.url}
               />
@@ -94,12 +95,12 @@ export const PostDetail = ({ post }: PostDetailProps) => {
                 />
               </svg>
               <span className="align-middle">
-                {moment(post.createdAt).format('MMM DD, YYYY')}
+                { moment(post.createdAt).format('MMM DD, YYYY') }
               </span>
             </div>
           </div>
           <h1 className="mb-8 text-white text-3xl font-semibold">
-            {post.title}
+            { post.title }
           </h1>
           <div className="content-wrap text-white">
             {post.content.raw.children.map((typeObj: any, index: number) => {

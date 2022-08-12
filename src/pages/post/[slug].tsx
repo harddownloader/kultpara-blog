@@ -15,7 +15,7 @@ import {
 import { getAllPosts, getPostDetails } from '@/services';
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { PostDetails, PostWrap } from '@/types/Posts';
-import {PathType} from "@/types/Pathes";
+import { PathType } from "@/types/Pathes";
 
 
 export interface PostDetailsPageProps {
@@ -31,7 +31,7 @@ const PostDetails = ({ post }: PostDetailsPageProps) => {
 
   return (
     <>
-      <div className="container mx-auto px-10 mb-8">
+      <div className="container mx-auto px-4 md:px-10 mb-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           <div className="col-span-1 lg:col-span-8">
             <PostDetail post={post} />

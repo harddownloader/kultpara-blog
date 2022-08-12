@@ -50,7 +50,7 @@ export const Subscribe = memo(() => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <input
             id="email"
-            className={"p-2 bg-white text-base text-black"}
+            className={"p-2 w-full bg-white text-base text-black md:w-auto"}
             {...register("email", {
               required: "required",
               pattern: {
@@ -63,7 +63,7 @@ export const Subscribe = memo(() => {
           />
           <button
             type="submit"
-            className={"p-2 bg-black border-2 border-white text-base text-white"}
+            className={"p-2 w-full bg-black border-2 border-white text-base text-white md:w-auto"}
           >{ t('subscribe') }</button>
         </form>
       </div>
