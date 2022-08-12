@@ -11,9 +11,9 @@ export interface LayoutProps {
 export function Layout({ children }: LayoutProps) {
   return (
     <>
-      <Header />
-      {children}
-      <Footer />
+        <Header />
+        {children}
+        <Footer />
     </>
   );
 }

@@ -1,5 +1,8 @@
 import React, { memo } from 'react';
 import Link from "next/link";
+import Image from "next/image";
+import short_logo from '../../../public/short_logo.jpg'
+
 
 type LogoProps = {
   name: string
@@ -21,10 +24,12 @@ export const Logo = memo(({ name, blogText }: LogoProps) => {
         </span>
       </Link>
       <Link href={"/"}>
-        <img
-          src="/short_logo.jpg"
+        <Image
+          src={short_logo}
           alt={`Blog ${ name }`}
-          className={"h-10 cursor-pointer"}
+          height={40}
+          width={47}
+          className={"cursor-pointer"}
         />
       </Link>
     </div>

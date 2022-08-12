@@ -13,7 +13,7 @@ import { Posts } from '@/types/Posts';
 function Home({ posts }: Posts) {
   return (
     <>
-      <BaseSeo />
+      <BaseSeo description={""} />
       <div className="py-10">
         <header className="mb-4">
           <div className="container" />

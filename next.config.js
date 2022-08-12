@@ -6,6 +6,7 @@ module.exports = {
   i18n,
   images: {
     domains: ['media.graphassets.com'],
+    formats: ['image/avif', 'image/webp'],
   },
   env: {
     BLOG_NAME: process.env.NEXT_PUBLIC_BLOG_NAME,
