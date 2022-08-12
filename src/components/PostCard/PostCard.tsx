@@ -40,13 +40,13 @@ export const PostCard = ({ post, isSmall, heightFull }: PostCardProps) => {
         </Link>
       </h1>
       <div className={`block lg:flex text-center items-center justify-center ${isSmall ? 'mb-4' :'mb-8'} w-full`}>
-        <div className={`flex items-center justify-center ${isSmall ? 'mb-2 mr-4' : 'mb-4 mr-8'} lg:mb-0 w-full lg:w-auto  items-center`}>
+        <div className={`flex items-center justify-center ${isSmall ? 'mb-2 mr-4' : 'mb-4 mr-8'} lg:mb-0 w-full lg:w-auto items-center`}>
           <Image
             loader={({ src }) => src}
             alt={post.author.name}
-            height={isSmall ? '20px' : '30px'}
-            width={isSmall ? '20px' : '30px'}
-            className="align-middle rounded-full"
+            height={20}
+            width={22}
+            className="align-middle"
             src={post.author.photo.url}
           />
           <p className={`inline align-middle text-white ml-2 font-medium ${isSmall ? 'text-sm': 'text-lg'}`}>
