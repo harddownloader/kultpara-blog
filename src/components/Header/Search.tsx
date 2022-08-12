@@ -29,6 +29,7 @@ export const Search = memo(({ placeholder }: SearchProps) => {
           onChange={(e) => setSearch(e.target.value)}
         />
         <button
+          aria-label={"search"}
           onClick={() => searchHandler()}
           className={"p-2 bg-black border-2 border-white text-base text-white"}
         ><SearchIcon /></button>
