@@ -6,14 +6,20 @@ import {
   Layout
 } from "@/components";
 import { BaseSeo } from "@/components/seo/BaseSeo";
-import { getPosts } from "@/services";
+import {getPosts, getSeoDescription} from "@/services";
 import { LocaleEnum } from "@/types/Locale";
-import { Posts } from '@/types/Posts';
+import { PostWrap } from '@/types/Posts';
 
-function Home({ posts }: Posts) {
+
+export interface HomeProps {
+  posts: Array<PostWrap>
+  pageSeoDescription: string
+}
+
+function Home({ posts, pageSeoDescription }: HomeProps) {
   return (
     <>
-      <BaseSeo description={""} />
+      <BaseSeo description={pageSeoDescription} />
       <div className="py-10">
         <header className="mb-4">
           <div className="container" />
@@ -30,11 +36,13 @@ function Home({ posts }: Posts) {
 export const getStaticProps: GetStaticProps = async (context) => {
   const { locale } = context;
   const posts = (await getPosts(locale as LocaleEnum)) || [];
+  const description = await getSeoDescription('home');
 
   return {
     props: {
-      ...(await serverSideTranslations(locale as string, ['common', 'comments', 'header', 'footer'])),
+      pageSeoDescription: description,
       posts,
+      ...(await serverSideTranslations(locale as string, ['common', 'comments', 'header', 'footer'])),
     },
     revalidate: 60 * 60, // value in seconds, how often ISR will trigger on the server
   };

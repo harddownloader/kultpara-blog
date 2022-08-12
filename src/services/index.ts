@@ -370,3 +370,16 @@ export const addSubscriber = async (email: string) => {
     }`;
   await graphQLClient.request(query, { email });
 };
+
+
+export const getSeoDescription = async (title: string) => {
+  const query = gql`
+    query GetSeo($title: String!) {
+      seo(where: { title: $title }) {
+        description
+      }
+    }
+  `
+  const result = await request(graphqlAPI, query, { title });
+  return result?.seo?.description;
+}
