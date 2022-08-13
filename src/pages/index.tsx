@@ -35,7 +35,8 @@ function Home({ posts, pageSeoDescription }: HomeProps) {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { locale } = context;
-  const posts = (await getPosts(locale as LocaleEnum)) || [];
+  // const posts = (await getPosts(locale as LocaleEnum)) || [];
+  const posts = await getPosts(locale as LocaleEnum);
   const description = await getSeoDescription('home') || '';
 
   return {
