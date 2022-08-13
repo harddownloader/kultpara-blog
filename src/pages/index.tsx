@@ -38,6 +38,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   // const posts = (await getPosts(locale as LocaleEnum)) || [];
   console.log('index getStaticProps locale', locale)
   const posts = await getPosts(locale as LocaleEnum);
+  const test = posts.map((post:any) => post)
   const description = await getSeoDescription('home') || '';
 
   return {
