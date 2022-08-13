@@ -4,10 +4,9 @@ module.exports = {
     i18n: {
         defaultLocale: 'en',
         locales: ['en', 'ua', 'ru'],
-
+        defaultNS: 'app',
     },
     localePath: path.resolve('./public/locales'),
-    defaultNS: 'app',
     serializeConfig: false,
     reloadOnPrerender: process.env.NODE_ENV === 'development'
 };
