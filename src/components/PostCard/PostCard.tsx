@@ -4,6 +4,7 @@ import moment from 'moment';
 import Link from 'next/link';
 import { useTranslation } from "next-i18next";
 import { Post } from '@/types/Posts';
+import classes from './PostCard.module.scss';
 
 
 export interface PostCardProps {
@@ -19,16 +20,19 @@ export const PostCard = ({ post, isSmall, heightFull }: PostCardProps) => {
     <div className={`bg-black border-2 border-white shadow-lg p-0 lg:p-8 pb-12 ${heightFull ? 'h-full' : 'mb-8'}`}>
       <div className={`relative overflow-hidden shadow-md ${isSmall ? 'pb-40' : 'pb-80'} mb-6`}>
         <Link href={`/post/${post.slug}`}>
-          <Image
-            src={post.featuredImage.url}
-            alt={post.title}
-            // width={30}
-            // height={35}
-            // sizes="320 640 750"
-            layout="fill"
-            className={`object-top absolute w-full object-cover shadow-lg cursor-pointer rounded-t-lg lg:rounded-lg`}
-             //${isSmall ? 'h-40' : 'h-80'}
-          />
+          <a href="pass">
+            <Image
+              src={post.featuredImage.url}
+              alt={post.title}
+              // width={30}
+              // height={35}
+              sizes="320 640 750"
+
+              layout="fill"
+              className={`object-top absolute w-full object-cover shadow-lg cursor-pointer rounded-t-lg lg:rounded-lg`}
+               //${isSmall ? 'h-40' : 'h-80'}
+            />
+          </a>
         </Link>
       </div>
 
@@ -40,13 +44,15 @@ export const PostCard = ({ post, isSmall, heightFull }: PostCardProps) => {
         </Link>
       </h1>
       <div className={`block lg:flex text-center items-center justify-center ${isSmall ? 'mb-4' :'mb-8'} w-full`}>
-        <div className={`flex items-center justify-center ${isSmall ? 'mb-2 mr-4' : 'mb-4 mr-8'} lg:mb-0 w-full lg:w-auto items-center`}>
+        <div className={classes.author_image_wrap}>
           <Image
             loader={({ src }) => src}
             alt={post.author.name}
             height={20}
             width={22}
-            className="align-middle"
+            // layout={'fill'}
+            // className="align-middle"
+            className={classes.author_image}
             src={post.author.photo.url}
           />
           <p className={`inline align-middle text-white ml-2 font-medium ${isSmall ? 'text-sm': 'text-lg'}`}>

@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import Link from "next/link";
 import Image from "next/image";
-import short_logo from '../../../public/short_logo.jpg'
+import short_logo from '../../../public/short_logo.jpg';
 
 
 type LogoProps = {
@@ -23,15 +23,23 @@ export const Logo = memo(({ name, blogText }: LogoProps) => {
           { blogText }
         </span>
       </Link>
-      <Link href={"/"}>
-        <Image
-          src={short_logo}
-          alt={`Blog ${ name }`}
-          height={40}
-          width={47}
-          className={"cursor-pointer"}
-        />
-      </Link>
+
+      <div className="h-10 w-12 relative">
+        <Link href={"/"}>
+          <a href="pass">
+            <Image
+              src={short_logo}
+              alt={`Blog ${ name }`}
+              layout="fill"
+              sizes="(min-width: 75em) 3rem,
+                (min-width: 48em) 3rem,
+                3rem"
+              className={"cursor-pointer"}
+              placeholder="blur"
+            />
+          </a>
+        </Link>
+      </div>
     </div>
   );
 });

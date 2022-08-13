@@ -1,0 +1,20 @@
+.author_image_wrap {
+  @apply flex items-center justify-center mb-4 mr-8 lg:mb-0 w-full lg:w-auto items-center;
+  width: 1.5rem;
+}
+//
+//.author_image_wrap > span {
+//  position: unset !important;
+//}
+//
+//.author_image_wrap > span > span {
+//  position: unset !important;
+//}
+
+.author_image {
+  @apply align-middle;
+  //object-fit: contain;
+  //width: 100% !important;
+  //position: relative !important;
+  //height: unset !important;
+}
