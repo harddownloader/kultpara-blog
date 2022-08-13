@@ -16,14 +16,5 @@ module.exports = {
     BACKEND_ACCESS_TOKEN: process.env.BACKEND_ACCESS_TOKEN ,
     MAIN_WEBSITE: process.env.NEXT_MAIN_WEBSITE_DOMAIN
   },
-  // async redirects() {
-  //   return [
-  //     {
-  //       source: '/',
-  //       destination: '/en/',
-  //       permanent: false,
-  //       locale: false,
-  //     }
-  //   ];
-  // },
+  // productionBrowserSourceMaps: true,
 }
