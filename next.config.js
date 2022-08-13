@@ -16,5 +16,10 @@ module.exports = {
     BACKEND_ACCESS_TOKEN: process.env.BACKEND_ACCESS_TOKEN ,
     MAIN_WEBSITE: process.env.NEXT_MAIN_WEBSITE_DOMAIN
   },
+  eslint: {
+    // Warning: This allows production builds to successfully complete even if
+    // your project has ESLint errors.
+    ignoreDuringBuilds: true,
+  },
   // productionBrowserSourceMaps: true,
 }
