@@ -36,6 +36,7 @@ function Home({ posts, pageSeoDescription }: HomeProps) {
 export const getStaticProps: GetStaticProps = async (context) => {
   const { locale } = context;
   // const posts = (await getPosts(locale as LocaleEnum)) || [];
+  console.log('index getStaticProps locale', locale)
   const posts = await getPosts(locale as LocaleEnum);
   const description = await getSeoDescription('home') || '';
 
@@ -43,7 +44,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
     props: {
       pageSeoDescription: description,
       posts,
-      ...(await serverSideTranslations(locale as string, ['common', 'comments', 'header', 'footer'])),
+      ...(await serverSideTranslations(
+        locale as string,
+        ['common', 'comments', 'header', 'footer']
+      )),
     },
     revalidate: 60 * 60, // value in seconds, how often ISR will trigger on the server
   };
