@@ -17,7 +17,7 @@ function Custom500() {
 
         <div className="py-10">
           <header className="mb-4">
-            <div className="container px-8 text-white">{ "500 - Server-side error occurred" }</div>
+            <div className="container px-8 text-white">500 - {t('500_status_error')}</div>
 
           </header>
           <main>
