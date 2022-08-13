@@ -7,7 +7,7 @@ export const NewPostsSection = ({ posts }: Posts) => {
   return (
       <>
         <div className="grid grid-col-1 md:grid-cols-2 gap-4">
-          {posts.map((post: { node: Post }, index: number) => {
+          {posts?.length && posts.map((post: { node: Post }, index: number) => {
             return (
                 <div
                   key={index}
