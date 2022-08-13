@@ -57,7 +57,11 @@ const PostDetails = ({ post }: PostDetailsPageProps) => {
 export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
   // @ts-ignore
   const postDetails = params?.slug ? await getPostDetails(params.slug) : null;
-
+  console.error({
+    postDetails,
+    paramsSlug: params?.slug,
+    params: params
+  })
   return {
     props: {
       post: postDetails,
