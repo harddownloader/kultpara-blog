@@ -27,10 +27,8 @@ export const PostCard = ({ post, isSmall, heightFull }: PostCardProps) => {
               // width={30}
               // height={35}
               sizes="320 640 750"
-
               layout="fill"
               className={`object-top absolute w-full object-cover shadow-lg cursor-pointer rounded-t-lg lg:rounded-lg`}
-               //${isSmall ? 'h-40' : 'h-80'}
             />
           </a>
         </Link>
@@ -51,7 +49,6 @@ export const PostCard = ({ post, isSmall, heightFull }: PostCardProps) => {
             height={20}
             width={22}
             // layout={'fill'}
-            // className="align-middle"
             className={classes.author_image}
             src={post.author.photo.url}
           />
