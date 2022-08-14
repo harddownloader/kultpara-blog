@@ -1,4 +1,4 @@
-import {GetServerSideProps, GetStaticPaths, GetStaticProps, GetStaticPropsContext, InferGetStaticPropsType} from "next";
+import { GetStaticProps } from "next";
 import React, { ReactElement } from "react";
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import {
@@ -6,7 +6,7 @@ import {
   Layout
 } from "@/components";
 import { BaseSeo } from "@/components/seo/BaseSeo";
-import {getPosts, getSeoDescription} from "@/services";
+import { getPosts, getSeoDescription } from "@/services";
 import { LocaleEnum } from "@/types/Locale";
 import { PostWrap } from '@/types/Posts';
 
@@ -33,31 +33,9 @@ function Home({ posts, pageSeoDescription }: HomeProps) {
 }
 
 
-// export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
-//   console.log('index getServerSideProps locale', locale)
-//   const posts = await getPosts(locale as LocaleEnum);
-//   const test = posts.map((post:any) => post)
-//   const description = await getSeoDescription('home') || '';
-//
-//   return {
-//     props: {
-//       pageSeoDescription: description,
-//       posts,
-//       ...(await serverSideTranslations(
-//         "ru", // locale as string,
-//         ['common', 'comments', 'header', 'footer']
-//       )),
-//     },
-//     // revalidate: 60 * 60, // value in seconds, how often ISR will trigger on the server
-//   };
-// }
-
 export const getStaticProps: GetStaticProps = async (context) => {
   const { locale } = context;
-  // const posts = (await getPosts(locale as LocaleEnum)) || [];
-  console.log('index getStaticProps locale', locale)
-  const posts = await getPosts(locale as LocaleEnum);
-  const test = posts.map((post:any) => post)
+  const posts = (await getPosts(locale as LocaleEnum)) || [];
   const description = await getSeoDescription('home') || '';
 
   return {
@@ -69,7 +47,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
         ['common', 'comments', 'header', 'footer']
       )),
     },
-    //revalidate: 60 * 60, // value in seconds, how often ISR will trigger on the server
+    // revalidate: 60 * 60, // value in seconds, how often ISR will trigger on the server
   };
 };
 
