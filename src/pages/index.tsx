@@ -1,4 +1,4 @@
-import {GetStaticPaths, GetStaticProps, GetStaticPropsContext, InferGetStaticPropsType} from "next";
+import {GetServerSideProps, GetStaticPaths, GetStaticProps, GetStaticPropsContext, InferGetStaticPropsType} from "next";
 import React, { ReactElement } from "react";
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import {
@@ -33,6 +33,25 @@ function Home({ posts, pageSeoDescription }: HomeProps) {
 }
 
 
+// export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+//   console.log('index getServerSideProps locale', locale)
+//   const posts = await getPosts(locale as LocaleEnum);
+//   const test = posts.map((post:any) => post)
+//   const description = await getSeoDescription('home') || '';
+//
+//   return {
+//     props: {
+//       pageSeoDescription: description,
+//       posts,
+//       ...(await serverSideTranslations(
+//         "ru", // locale as string,
+//         ['common', 'comments', 'header', 'footer']
+//       )),
+//     },
+//     // revalidate: 60 * 60, // value in seconds, how often ISR will trigger on the server
+//   };
+// }
+
 export const getStaticProps: GetStaticProps = async (context) => {
   const { locale } = context;
   // const posts = (await getPosts(locale as LocaleEnum)) || [];
@@ -50,7 +69,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
         ['common', 'comments', 'header', 'footer']
       )),
     },
-    revalidate: 60 * 60, // value in seconds, how often ISR will trigger on the server
+    //revalidate: 60 * 60, // value in seconds, how often ISR will trigger on the server
   };
 };
 

@@ -6,7 +6,7 @@ module.exports = {
         locales: ['en', 'ua', 'ru'],
     },
     localePath: path.resolve('./public/static/locales'),
-    react: { useSuspense: false },//this line
+    // react: { useSuspense: false }, //this line
     // serializeConfig: false,
     // defaultNS: 'common',
     debug: process.env.NODE_ENV === 'development',
