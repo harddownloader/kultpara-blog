@@ -78,6 +78,7 @@ export const getPosts = async (language: LocaleEnum) => {
   const result = await request(graphqlAPI, query, { language });
   console.error({getPosts: result})
   if (!result?.postsConnection?.edges?.length) throw new Error(`getPosts lang=${language} length=${result?.postsConnection?.edges?.length}`);
+  const res = result.postsConnection.edges.map((post:any) => post)
   return result.postsConnection.edges;
 };
 
