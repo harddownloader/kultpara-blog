@@ -1,4 +1,4 @@
-import {GetStaticPaths, GetStaticProps, GetStaticPropsContext, InferGetStaticPropsType} from "next";
+import { GetStaticProps } from "next";
 import React, { ReactElement } from "react";
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import {
@@ -6,7 +6,7 @@ import {
   Layout
 } from "@/components";
 import { BaseSeo } from "@/components/seo/BaseSeo";
-import {getPosts, getSeoDescription} from "@/services";
+import { getPosts, getSeoDescription } from "@/services";
 import { LocaleEnum } from "@/types/Locale";
 import { PostWrap } from '@/types/Posts';
 
@@ -42,9 +42,12 @@ export const getStaticProps: GetStaticProps = async (context) => {
     props: {
       pageSeoDescription: description,
       posts,
-      ...(await serverSideTranslations(locale as string, ['common', 'comments', 'header', 'footer'])),
+      ...(await serverSideTranslations(
+        locale as string,
+        ['common', 'comments', 'header', 'footer']
+      )),
     },
-    revalidate: 60 * 60, // value in seconds, how often ISR will trigger on the server
+    // revalidate: 60 * 60, // value in seconds, how often ISR will trigger on the server
   };
 };
 
