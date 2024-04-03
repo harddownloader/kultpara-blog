@@ -5,8 +5,9 @@ import Document, {
   Main,
   NextScript
 } from 'next/document';
-import { GoogleAnalytics } from '@next/third-parties/google';
+import Script from "next/script";
 import { i18n } from '../../next-i18next.config';
+import * as process from "process";
 
 class MyDocument extends Document<{ lang?:string }> {
   static async getInitialProps(ctx: DocumentContext) {
@@ -25,7 +26,19 @@ class MyDocument extends Document<{ lang?:string }> {
       <Html lang={currentLocale}>
         <Head>
           {/* Google tag (gtag.js) */}
-          <GoogleAnalytics gaId="G-ZYWWC5310H" />
+          <Script
+            strategy="lazyOnload"
+            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+          />
+
+          <Script strategy="lazyOnload">
+            {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}');
+           `}
+          </Script>
 
           <link rel="dns-prefetch" href={`//${hostname}`} />
         </Head>
