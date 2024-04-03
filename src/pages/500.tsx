@@ -22,16 +22,14 @@ function Custom500() {
           </header>
           <main>
             <div className="container px-8">
-              <Link href={'/'} passHref>
-                <a href="pass" className={"text-base px-3 py-2" +
+              <Link href={'/'} className={"text-base px-3 py-2" +
                 "              bg-black border-2 border-white text-white" +
                 "              cursor-pointer" +
                 "              hover:-translate-y-1\n" +
                 "              transition\n" +
                 "              duration-500\n" +
                 "              ease-in-out"}>
-                  { t('go_back_home') }
-                </a>
+                { t('go_back_home') }
               </Link>
             </div>
           </main>

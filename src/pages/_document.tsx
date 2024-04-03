@@ -5,6 +5,7 @@ import Document, {
   Main,
   NextScript
 } from 'next/document';
+import { GoogleAnalytics } from '@next/third-parties/google';
 import { i18n } from '../../next-i18next.config';
 
 class MyDocument extends Document<{ lang?:string }> {
@@ -23,6 +24,8 @@ class MyDocument extends Document<{ lang?:string }> {
     return (
       <Html lang={currentLocale}>
         <Head>
+          {/* Google tag (gtag.js) */}
+          <GoogleAnalytics gaId="G-ZYWWC5310H" />
           <link rel="preconnect" href={`//${hostname}`} crossOrigin="true" />
           <link rel="dns-prefetch" href={`//${hostname}`} />
         </Head>

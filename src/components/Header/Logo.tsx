@@ -26,18 +26,16 @@ export const Logo = memo(({ name, blogText }: LogoProps) => {
 
       <div className="h-10 w-12 relative">
         <Link href={"/"}>
-          <a href="pass">
-            <Image
-              src={short_logo}
-              alt={`Blog ${ name }`}
-              layout="fill"
-              sizes="(min-width: 75em) 3rem,
-                (min-width: 48em) 3rem,
-                3rem"
-              className={"cursor-pointer"}
-              placeholder="blur"
-            />
-          </a>
+          <Image
+            src={short_logo}
+            alt={`Blog ${ name }`}
+            layout="fill"
+            sizes="(min-width: 75em) 3rem,
+              (min-width: 48em) 3rem,
+              3rem"
+            className={"cursor-pointer"}
+            placeholder="blur"
+          />
         </Link>
       </div>
     </div>

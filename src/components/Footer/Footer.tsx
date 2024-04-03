@@ -21,7 +21,7 @@ export const Footer = memo(({}) => {
       "              text-base\n" +
       "              font-medium"}
     >
-      <div className="w-full my-4">
+      <div className="w-full my-14">
         <p className="text-lg capitalize text-center mb-1">{t('receive_news')}:</p>
         <Subscribe />
       </div>

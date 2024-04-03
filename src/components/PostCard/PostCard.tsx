@@ -20,17 +20,15 @@ export const PostCard = ({ post, isSmall, heightFull }: PostCardProps) => {
     <div className={`bg-black border-2 border-white shadow-lg p-0 lg:p-8 pb-12 ${heightFull ? 'h-full' : 'mb-8'}`}>
       <div className={`relative overflow-hidden shadow-md ${isSmall ? 'pb-40' : 'pb-80'} mb-6`}>
         <Link href={`/post/${post.slug}`}>
-          <a href="pass">
-            <Image
-              src={post.featuredImage.url}
-              alt={post.title}
-              // width={30}
-              // height={35}
-              sizes="320 640 750"
-              layout="fill"
-              className={`object-top absolute w-full object-cover shadow-lg cursor-pointer rounded-t-lg lg:rounded-lg`}
-            />
-          </a>
+          <Image
+            src={post.featuredImage.url}
+            alt={post.title}
+            // width={30}
+            // height={35}
+            sizes="320 640 750"
+            layout="fill"
+            className={`object-top absolute w-full object-cover shadow-lg cursor-pointer rounded-t-lg lg:rounded-lg`}
+          />
         </Link>
       </div>
 
