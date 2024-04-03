@@ -14,7 +14,6 @@
     "@emotion/styled": "^11.9.3",
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.9.1",
-    "@next/third-parties": "^14.1.4",
     "@sentry/nextjs": "^7.10.0",
     "graphql": "^16.5.0",
     "graphql-request": "^4.3.0",
