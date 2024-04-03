@@ -13,8 +13,8 @@ export const Author = ({ author }: AuthorProps) => (
         unoptimized
         loader={({ src }) => src}
         alt={author.name}
-        height="100px"
-        width="100px"
+        height={100}
+        width={100}
         className="align-middle rounded-full"
         src={author.photo.url}
       />
