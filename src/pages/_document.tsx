@@ -26,7 +26,7 @@ class MyDocument extends Document<{ lang?:string }> {
         <Head>
           {/* Google tag (gtag.js) */}
           <GoogleAnalytics gaId="G-ZYWWC5310H" />
-          <link rel="preconnect" href={`//${hostname}`} crossOrigin="true" />
+
           <link rel="dns-prefetch" href={`//${hostname}`} />
         </Head>
         <body>
