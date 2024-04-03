@@ -9,3 +9,15 @@ yarn dev
 
 # Deploy
 yarn build
+
+# Run build
+yarn start
+
+# Lint
+yarn lint
+
+# Cypress - run
+yarn cy:run
+
+# Cypress - open
+yarn cy:open
